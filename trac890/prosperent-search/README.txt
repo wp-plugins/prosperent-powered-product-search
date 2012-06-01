@@ -103,7 +103,7 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
 
-Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] define('PLUGINPATH', ABSPATH . 'wp-content/plugins/prosperent-search'); include(PLUGINPATH. '/products.php'); [/php]`, change the `ABSPATH . 'wp-content/plugins/prosperent-search'` to the path of the path for your WP download.
+Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
 
 You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 
