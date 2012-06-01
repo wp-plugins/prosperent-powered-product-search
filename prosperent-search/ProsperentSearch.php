@@ -282,8 +282,7 @@ function my_plugin_install()
         $_p = array();
         $_p['post_title'] = $the_page_title;
         $_p['post_content'] = "[php]
-                               define('PLUGINPATH', ABSPATH . 'wp-content/plugins/prosperent-search');
-                               include(PLUGINPATH. '/products.php');
+                               include(plugin_dir_path(__FILE__) . 'products.php');
                                [/php]";
         $_p['post_status'] = 'publish';
         $_p['post_type'] = 'page';
