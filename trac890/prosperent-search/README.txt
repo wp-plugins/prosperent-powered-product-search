@@ -92,6 +92,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 1.1 =
+* include() error fixed
+* round() error fixed
+
 = 1.0 =
 * First Release
 
