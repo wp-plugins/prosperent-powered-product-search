@@ -34,7 +34,7 @@ We have an ever growing community, which is always willing to answer questions a
 4.	Place `<?php prospere_header(); ?>` in your themes `header.php` file where you'd like the search bar to be located.
 5.	Activate the plugin through the 'Plugins' menu in WordPress.
 6.	Go to the `Prosperent Settings` and edit those that you'd like, don't forget to add your API key here.
-            API Key, input the API Key that you got earlier.
+        API Key, input the API Key that you got earlier.
         Facets, True or False, this setting enables or disables the use of facets. Facets allow someone to narrow down a result by brand and merchant. (Facets are enabled by default.)
         Limit, The is the API limit, the max is 100. Set anywhere between 1-100. (Default is 100.)
         Logo Image and Logo Image-Small, these are the logos associated with search input box. Only set one to TRUE. (Logo Image is by default set to TRUE.)
@@ -46,22 +46,17 @@ We have an ever growing community, which is always willing to answer questions a
 8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
 9.	Log in to Prosperent.com every so often to check your stats.
 
-
-
-
 == Frequently Asked Questions ==
 
 = What is Prosperent? =
 
-Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean datafeeds, and provide a variety of publisher
-
-tools to get products on your site quickly and easily.
+Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean datafeeds, and provide a variety of publisher tools to get products on your site quickly and easily.
 
 = How many merchants does Prosperent work with? =
 
 Currently over 2,000 and growing.
 
- =How many products does Prosperent have? =
+= How many products does Prosperent have? =
 
 We currently index and search against almost 50 million products.
 
@@ -75,9 +70,7 @@ Prosperent pays publishers net30 which means we pay you 30 days after commission
 
 = How can we track our earnings? =
 
-We have a comprehensive reporting system in place that allows you to see which pages are generating earnings, which city/state/country the sales are coming from, and which individual products and retailers are
-
-providing those sales.
+We have a comprehensive reporting system in place that allows you to see which pages are generating earnings, which city/state/country the sales are coming from, and which individual products and retailers are providing those sales.
 
 = What is the revenue split? =
 
@@ -86,9 +79,6 @@ We take a 30% commission and pay you the other 70%. If you are a larger publishe
 = What are the comissions paid and terms? =
 
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
-
-== Screenshots ==
-
 
 == Changelog ==
 
@@ -107,4 +97,4 @@ Also if you are getting an include error, on your `product` page created by the 
 
 You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 
-If you have any questions or suggestions, please feel free to ask me here or on the [Prosperent Community](http://community.prosperent.com/forum.php), or email me [Prosperent Brandon](brandon@prosperent.com)
+If you have any questions or suggestions, please feel free to ask me here or on the [Prosperent Community](http://community.prosperent.com/forum.php), or email me Prosperent Brandon at brandon@prosperent.com
