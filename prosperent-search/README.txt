@@ -13,42 +13,42 @@ Adds a product search box to your blog, which viewers can use to search and make
 
 *Prosperent Product Search*
 
-This plugin will help make/increase earnings from your blog. It will add a product search box to your wordpress site, which viewers can use to search for products. 
-When they click the product through your site they will be redirected to the Merchant's site. If they make a purchase you will earn a commission from the sale. 
+This plugin will help make/increase earnings from your blog. It will add a product search box to your wordpress site, which viewers can use to search for products.
+When they click the product through your site they will be redirected to the Merchant's site. If they make a purchase you will earn a commission from the sale.
 
 *Why Prosperent Product Search?*
 
-Prosperent Product Search uses Prosperent's API, which is a very advanced API that offers you access to 3000 merchants and 50 million products from all of the top 
+Prosperent Product Search uses Prosperent's API, which is a very advanced API that offers you access to 3000 merchants and 50 million products from all of the top
 online retailers. Stores like Zappos, 6pm, Best Buy, Overstock, REI, Advance Auto Parts, Kohl's, Gap, Banana Republic, Cabelas, and thousands more. If it is sold online,
 we probably have it in our system.
 
-We have an ever growing community, which is always willing to answer questions and lend a helping hand, and our team here at Prosperent is also available on the forum. 
+We have an ever growing community, which is always willing to answer questions and lend a helping hand, and our team here at Prosperent is also available on the forum.
 
 == Installation ==
 
 1.	Head over to [Prosperent](http://goo.gl/6X8OT) and click Join, its Free to do so. Create your account and once you are signed in, click the API tab up top. This page will give you the information you need to
-	know about the API. But all you need to do here at the moment is click API Keys on the submenu and click Add New API Key. This will get you the API key you'll need so commissions can be tracked back to you.
-	Name it whatever you'd like and you'll see that its created a key for you.  
+    know about the API. But all you need to do here at the moment is click API Keys on the submenu and click Add New API Key. This will get you the API key you'll need so commissions can be tracked back to you.
+    Name it whatever you'd like and you'll see that its created a key for you.
 2.	Save that key somewhere as you'll be needing it later.
 3.	Upload the `prosperent-search` folder to the `/wp-content/plugins/` directory.
 4.	Place `<?php prospere_header(); ?>` in your themes `header.php` file where you'd like the search bar to be located.
 5.	Activate the plugin through the 'Plugins' menu in WordPress.
 6.	Go to the `Prosperent Settings` and edit those that you'd like, don't forget to add your API key here.
-			API Key, input the API Key that you got earlier.  
-		Facets, True or False, this setting enables or disables the use of facets. Facets allow someone to narrow down a result by brand and merchant. (Facets are enabled by default.)
-		Limit, The is the API limit, the max is 100. Set anywhere between 1-100. (Default is 100.)
-		Logo Image and Logo Image-Small, these are the logos associated with search input box. Only set one to TRUE. (Logo Image is by default set to TRUE.)
-		Default Sort, when someone first searches for a product, this is how data will be returned. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low. (Relevance desc is default.)
-		Parent Directory- if you make the product page with a parent directory, insert that here with the leading slash (/) example: /sample-page (Default is blank, no parent.)
-		Merchant Facets and Brand Facets. The number of each facets to show in the primary list. (Brand default is 12 and Merchant default is 10.)
+            API Key, input the API Key that you got earlier.
+        Facets, True or False, this setting enables or disables the use of facets. Facets allow someone to narrow down a result by brand and merchant. (Facets are enabled by default.)
+        Limit, The is the API limit, the max is 100. Set anywhere between 1-100. (Default is 100.)
+        Logo Image and Logo Image-Small, these are the logos associated with search input box. Only set one to TRUE. (Logo Image is by default set to TRUE.)
+        Default Sort, when someone first searches for a product, this is how data will be returned. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low. (Relevance desc is default.)
+        Parent Directory- if you make the product page with a parent directory, insert that here with the leading slash (/) example: /sample-page (Default is blank, no parent.)
+        Merchant Facets and Brand Facets. The number of each facets to show in the primary list. (Brand default is 12 and Merchant default is 10.)
 7.	The plugin automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
-	the `showcase` template.)
-8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page. 
-9.	Log in to Prosperent.com every so often to check your stats. 
-		
-		
-		
-		
+    the `showcase` template.)
+8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
+9.	Log in to Prosperent.com every so often to check your stats.
+
+
+
+
 == Frequently Asked Questions ==
 
 = What is Prosperent? =
@@ -62,7 +62,7 @@ tools to get products on your site quickly and easily.
 Currently over 2,000 and growing.
 
  =How many products does Prosperent have? =
- 
+
 We currently index and search against almost 50 million products.
 
 = Where can publishers go to get help? =
@@ -72,10 +72,6 @@ Our Community Forums are a fantastic resource. Our entire team is active on a da
 = How do I get paid? =
 
 Prosperent pays publishers net30 which means we pay you 30 days after commission event takes place. This gives merchants time to see if a product is returned, or otherwise needs to be delayed for whatever reason.
-
-= How can I get started as a Prosperent Publisher? =
-
-I’m glad you asked. Sign Up. It’s quick and easy!
 
 = How can we track our earnings? =
 
@@ -101,7 +97,9 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Notes ==
 
-If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash. 
+If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
+
+Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] define('PLUGINPATH', ABSPATH . 'wp-content/plugins/prosperent-search'); include(PLUGINPATH. '/products.php'); [/php]`, change the `ABSPATH . 'wp-content/plugins/prosperent-search'` to the path of the path for your WP download.
 
 You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 
