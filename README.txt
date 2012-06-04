@@ -30,7 +30,7 @@ We have an ever growing community, which is always willing to answer questions a
     know about the API. But all you need to do here at the moment is click API Keys on the submenu and click Add New API Key. This will get you the API key you'll need so commissions can be tracked back to you.
     Name it whatever you'd like and you'll see that its created a key for you.
 2.	Save that key somewhere as you'll be needing it later.
-3.	Upload the `prosperent-search` folder to the `/wp-content/plugins/` directory.
+3.	Upload the `prosperent-powered-product-search` folder to the `/wp-content/plugins/` directory.
 4.	Place `<?php prospere_header(); ?>` in your themes `header.php` file where you'd like the search bar to be located.
 5.	Activate the plugin through the 'Plugins' menu in WordPress.
 6.	Go to the `Prosperent Settings` and edit those that you'd like, don't forget to add your API key here.

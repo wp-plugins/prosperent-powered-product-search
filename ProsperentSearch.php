@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to an existing vbulletin installations using Prosperent's API.
-Version: 1.1
+Version: 1.2
 Author: Prosperent Brandon
 License: GPL2
 */
