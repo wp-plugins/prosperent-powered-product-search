@@ -82,6 +82,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 1.2 =
+* Complete optimization
+* Product file redone
+
 = 1.1 =
 * include() error fixed
 * round() error fixed
@@ -91,10 +95,9 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Notes ==
 
-If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
+**For those who had previously downloaded this plugin.**
+*I dropped one of the directory's in V1.2, so just upload the `prosperent-powered-product-search` to your plugin directory, and delete the `prosperent-search`. Activate the new plugin and it should retain the settings and product page still.*
 
-Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
-
-You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
+*You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.*
 
 If you have any questions or suggestions, please feel free to ask me here or on the [Prosperent Community](http://community.prosperent.com/forum.php), or email me Prosperent Brandon at brandon@prosperent.com
