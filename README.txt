@@ -95,6 +95,9 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Notes ==
 
+**For those who had previously downloaded this plugin.**
+*I dropped one of the directory's in V1.2, so just upload the `prosperent-powered-product-search` to your plugin directory, and delete the `prosperent-search`. Activate the new plugin and it should retain the settings and product page still.*
+
 If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
 
 Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
