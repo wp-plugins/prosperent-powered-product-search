@@ -178,7 +178,6 @@ function register_prosperentSettings()
     register_setting('prosperent-settings-group', 'Logo_Image');
     register_setting('prosperent-settings-group', 'Logo_imageSmall');
     register_setting('prosperent-settings-group', 'Default_Sort');
-    register_setting('prosperent-settings-group', 'Parent_Directory');
     register_setting('prosperent-settings-group', 'Merchant_Facets', 'intval');
     register_setting('prosperent-settings-group', 'Brand_Facets', 'intval');
 }
@@ -225,10 +224,6 @@ function prosperent_settings_page()
                 <tr valign="top">
                 <th scope="row"><b>Default Sort</b> (Sets the sort type default. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low)</th>
                 <td><input type="text" name="Default_Sort" value="<?php echo get_option('Default_Sort'); ?>" /></td>
-                </tr>
-
-                <th scope="row"><b>Parent Directory</b> (If you want your product page to have a parent directory, name that here.)</th>
-                <td><input type="text" name="Parent_Directory" value="<?php echo get_option('Parent_Directory'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
