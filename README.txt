@@ -2,8 +2,8 @@
 Contributors: Prosperent Brandon
 Tags: Prosperent, products, search, money, SEO, affiliate
 Requires at least: 3.0
-Tested up to: 3.3.1
-Stable tag: NA at this time
+Tested up to: 3.3.2
+Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ We take a 30% commission and pay you the other 70%. If you are a larger publishe
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
 
 == Changelog ==
+
+= 1.3 =
+* Added a new Setting: Max Characters in Description: Sets the amount of characters shown in each product's description
+
 
 = 1.2 =
 * Complete optimization
