@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to an existing vbulletin installations using Prosperent's API.
-Version: 1.2
+Version: 1.3
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -180,6 +180,7 @@ function register_prosperentSettings()
     register_setting('prosperent-settings-group', 'Default_Sort');
     register_setting('prosperent-settings-group', 'Merchant_Facets', 'intval');
     register_setting('prosperent-settings-group', 'Brand_Facets', 'intval');
+    register_setting('prosperent-settings-group', 'Max_Char_Descrip', 'intval');
 }
 
 function prosperent_settings_page()
@@ -203,7 +204,7 @@ function prosperent_settings_page()
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Api Limit</b> (Number of results, max = 1000)</th>
+                <th scope="row"><b>Api Limit</b> (Number of results, max = 100)</th>
                 <td><input type="text" name="Api_Limit" value="<?php echo get_option('Api_Limit'); ?>" /></td>
                 </tr>
 
@@ -222,8 +223,13 @@ function prosperent_settings_page()
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Default Sort</b> (Sets the sort type default. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low)</th>
+                <th scope="row"><b>Default Sort</b> (Sets the sort type default, inputs are relevance desc, price asc, and price desc.)</th>
                 <td><input type="text" name="Default_Sort" value="<?php echo get_option('Default_Sort'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                <th scope="row"><b>Max Characters in Description</b> (Description Length in Characters. Defaults to 275)</th>
+                <td><input type="text" name="Max_Char_Descrip" value="<?php echo get_option('Max_Char_Descrip'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
