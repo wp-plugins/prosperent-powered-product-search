@@ -1,5 +1,3 @@
-
-
 <?php
 function pagination($pages = '', $range)
 {
@@ -60,13 +58,9 @@ function toggle_hidden(id)
 
 <?php
 $sort = !$_GET['sortBy'] ? (!get_option('Default_Sort') ? 'relevance desc' : get_option('Default_Sort')) : $_GET['sortBy'];
-$page = $_GET['page'];
 $filterMerchant = $_GET['filterMerchant'];
 $filterBrand = $_GET['filterBrand'];
 $query = $_GET['q'];
-
-$url = parse_url('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REDIRECT_URL']);
-$pageNumber = preg_replace('%^(.+)(/page/)(.+)$%i', '$3', $url['path']);
 
 /*
 /  Prosperent API Query
@@ -143,6 +137,7 @@ if (!$noResults)
 
             array_multisort($merchantNames, SORT_STRING, $merchants2);
         }
+
         ?>
 
         <table id="facets">
@@ -160,12 +155,12 @@ if (!$noResults)
                         {
                             if ($i < count($brands1) - 1)
                             {
-                                echo (empty($filterMerchant) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>, ' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '&filterMerchant=' . urlencode($filterMerchant) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>, ');
-                            }
+                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>, ';
+                }
                             else
                             {
-                                echo (empty($filterMerchant) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '&filterMerchant=' . urlencode($filterMerchant) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>');
-                            }
+                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>';
+                }
                         }
                         if (!empty($brands2))
                         {
@@ -179,7 +174,7 @@ if (!$noResults)
                     else
                     {
                         echo $filterBrand;
-                        echo '</br>' . (empty($filterMerchant) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '>clear filter</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&filterMerchant=' . urlencode($filterMerchant) . '&sortBy=' . urlencode($sort) . '>clear filter</a>');
+                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterBrand=' . rawurlencode($filterBrand), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
                     }
                     ?>
                 </td>
@@ -197,12 +192,12 @@ if (!$noResults)
                         {
                             if ($i < count($merchants1) - 1)
                             {
-                                echo (empty($filterBrand) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>, ' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '&filterBrand=' . urlencode($filterBrand) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>, ');
+                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>, ';
                             }
 
                             else
                             {
-                                echo (empty($filterBrand) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '&filterBrand=' . urlencode($filterBrand) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>');
+                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>';
                             }
                         }
                         if (!empty($merchants2))
@@ -217,7 +212,7 @@ if (!$noResults)
                     else
                     {
                         echo $filterMerchant;
-                        echo '</br>' . (empty($filterBrand) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '>clear filter</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($filterBrand) . '>clear filter</a>');
+                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterMerchant=' . rawurlencode($filterMerchant), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
                     }
                     ?>
                 </td>
@@ -234,7 +229,7 @@ if (!$noResults)
                     echo '<tr>';
                 }
 
-                echo '<td style="width:1%; padding:5px; height:30px;">' . (empty($filterMerchant) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterBrand=' . urlencode($brand['value']) . '&filterMerchant=' . urlencode($filterMerchant) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>') . '</td>';
+                echo '<td style="width:1%; padding:5px; height:30px;"><a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a></td>';
 
                 if ($i % 5 == 4 && $i >= 9)
                 {
@@ -256,7 +251,7 @@ if (!$noResults)
                     echo '<tr>';
                 }
 
-                echo '<td style="padding:5px; height:30px; width:1%;">' . (empty($filterBrand) ? '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query)  . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>' : '<a href=http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&filterMerchant=' . urlencode($merchant['value']) . '&filterBrand=' . urlencode($filterBrand) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ') </a>') . '</td>';
+                echo '<td style="padding:5px; height:30px; width:1%;"><a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a></td>';
 
                 if ($i % 4 == 3 && $i >= 7)
                 {
@@ -276,11 +271,10 @@ if (!$noResults)
     echo '<div class="totalFound">' . $totalFound . ' results for <b>' . strtolower($query) . '</b></div>';
     ?>
 
-     <form name="priceSorter" method="GET" action="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . urlencode($query) . '&sortBy=' . urlencode($sort) . '&page=' . $page . '&filterBrand=' . urlencode($filterBrand) . '&filterMerchant=' . urlencode($filterMerchant); ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
+     <form name="priceSorter" method="GET" action="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
         <input type="hidden" name="q" value="<?php echo $query;?>">
         <input type="hidden" name="filterBrand" value="<?php echo $filterBrand;?>">
         <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
-        <input type="hidden" name="page" value="<?php echo $page;?>">
         <label for="PriceSort" style="font-color:#cc6600; font-size:14px;">Sort By: </label>
         <select name="sortBy" onChange="priceSorter.submit();">
             <option> -- Select Option -- </option>
@@ -325,25 +319,21 @@ if (!$noResults)
             ?>
                 <tr class="productBlock">
                     <td class="productImage">
-                        <a href="http://<?php echo $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product?q=' . $record['keyword']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']?>';return false;"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
+                        <a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']?>';return false;"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
                     </td>
                     </td>
                     <td class="productContent">
-                        <div class="productTitle"><a href="http://<?php echo $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product?q=' . $record['keyword']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']?>';return false;"><span><?php echo $record['keyword']?></span></a></div>
+                        <div class="productTitle"><a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><span><?php echo $record['keyword']?></span></a></div>
                         <p class="productDescription"><?php echo substr($record['description'], 0, 275) . '...'; ?></p>
                         <p class="productBrandMerchant">
                             <?php
                             if($record['brand'])
                             {
-                                ?>
-                                <u>Brand</u>: <a href="http://<?php echo $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . $query . '&filterBrand=' . $record['brand'] . '&filterMerchant=' . urlencode($filterMerchant); ?>"><cite><?php echo $record['brand']?></cite></a>&nbsp&nbsp
-                                <?php
+                                echo '<u>Brand</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
                             }
                             if($record['merchant'])
                             {
-                                ?>
-                                <u>Merchant</u>: <a href="http://<?php echo $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product/page/' . $pageNumber . '?q=' . $query . '&filterMerchant=' . $record['merchant'] . '&filterBrand=' . urlencode($filterBrand); ?>"><cite><?php echo $record['merchant']?></cite></a>
-                                <?php
+                                echo '<u>Merchant</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
                             }
                             ?>
                         </p>
@@ -366,7 +356,7 @@ if (!$noResults)
                             <?php
                         }
                         ?>
-                        <a href="<?php echo $_SERVER['HTTP_HOST'] . get_option('Parent_Directory') . '/product?q=' . $record['keyword']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']?>';return false;"><img src="<?php echo plugins_url('/img/visit_store_button.gif', __FILE__);?> "></a>
+                        <a href="<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><img src="<?php echo plugins_url('/img/visit_store_button.gif', __FILE__);?> "></a>
                     </td>
                 </tr>
             <?php
