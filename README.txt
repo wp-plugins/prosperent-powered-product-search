@@ -41,6 +41,7 @@ We have an ever growing community, which is always willing to answer questions a
         Default Sort, when someone first searches for a product, this is how data will be returned. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low. (Relevance desc is default.)
         Parent Directory- if you make the product page with a parent directory, insert that here with the leading slash (/) example: /sample-page (Default is blank, no parent.)
         Merchant Facets and Brand Facets. The number of each facets to show in the primary list. (Brand default is 12 and Merchant default is 10.)
+        Negative Brand and Merchant Filters.(Brand(s) and/or Merchant(s) to discard from results.)
 7.	The plugin automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
     the `showcase` template.)
 8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
@@ -82,9 +83,11 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 1.4 =
+* Added Negative Brand and Merchant Filters. Allows you to remove certain brands/merchants from the results.
+
 = 1.3 =
 * Added a new Setting: Max Characters in Description: Sets the amount of characters shown in each product's description
-
 
 = 1.2 =
 * Complete optimization
