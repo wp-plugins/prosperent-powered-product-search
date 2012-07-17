@@ -244,12 +244,12 @@ function prosperent_settings_page()
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Negative Brand Filters</b> (Brands to discard from results)</th>
+                <th scope="row"><b>Negative Brand Filters</b> (Brands to discard from results. If more than 1, seperate by commas. Enter the Brand name exactly how it appears in the results. (ie. Nike, Reebok, Merrell)</th>
                 <td><input type="text" name="Negative_Brand" value="<?php echo get_option('Negative_Brand'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Negative Merchant Filters</b> (Merchants to discard from results)</th>
+                <th scope="row"><b>Negative Merchant Filters</b> (Merchants to discard from results. If more than 1, seperate by commas. Enter the Merchant's name exactly how it appears in the results.(ie. 6pm, Zappos.com, endless)</th>
                 <td><input type="text" name="Negative_Merchant" value="<?php echo get_option('Negative_Merchant'); ?>" /></td>
                 </tr>
             </table>
