@@ -62,6 +62,26 @@ $filterMerchant = $_GET['filterMerchant'];
 $filterBrand = $_GET['filterBrand'];
 $query = $_GET['q'];
 
+$minusBrands = explode(',', get_option('Negative_Brand'));
+
+$negativeBrands = array();
+foreach ($minusBrands as $negative)
+{
+    $negativeBrands[] = '!' . trim($negative);
+}
+
+array_unshift($negativeBrands, $filterBrand);
+
+$minusMerchants = explode(',', get_option('Negative_Merchant'));
+
+$negativeMerchants = array();
+foreach ($minusMerchants as $negative)
+{
+    $negativeMerchants[] = '!' . trim($negative);
+}
+
+array_unshift($negativeMerchants, $filterMerchant);
+
 /*
 /  Prosperent API Query
 */
@@ -73,11 +93,11 @@ $prosperentApi = new Prosperent_Api(array(
     'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
     'page'           => 1,
     'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
-    'sortBy'	     => $sort,
-    'groupBy'	     => 'productId',
+    'sortBy'	       => $sort,
+    'groupBy'	       => 'productId',
     'enableFacets'   => !get_option('Enable_Facets') ? TRUE : get_option('Enable_Facets'),
-    'filterBrand'    => $filterBrand,
-    'filterMerchant' => $filterMerchant
+    'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
+    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
 ));
 
 /*
@@ -324,14 +344,14 @@ if (!$noResults)
                     </td>
                     <td class="productContent">
                         <div class="productTitle"><a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><span><?php echo $record['keyword']?></span></a></div>
-                        <p class="productDescription"><?php echo substr($record['description'], 0, (!get_option('Max_Char_Descrip') ? 275 : get_option('Max_Char_Descrip'))) . '...'; ?></p>
+                        <p class="productDescription"><?php echo substr($record['description'], 0, 275) . '...'; ?></p>
                         <p class="productBrandMerchant">
                             <?php
-                            if($record['brand'] && !$filterBrand)
+                            if($record['brand'])
                             {
                                 echo '<u>Brand</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
                             }
-                            if($record['merchant'] && !$filterMerchant)
+                            if($record['merchant'])
                             {
                                 echo '<u>Merchant</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
                             }
