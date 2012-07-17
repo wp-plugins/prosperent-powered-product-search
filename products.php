@@ -194,7 +194,7 @@ if (!$noResults)
                     else
                     {
                         echo $filterBrand;
-                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterBrand=' . rawurlencode($filterBrand), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
+                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterBrand=' . urlencode($filterBrand), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
                     }
                     ?>
                 </td>
@@ -232,7 +232,7 @@ if (!$noResults)
                     else
                     {
                         echo $filterMerchant;
-                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterMerchant=' . rawurlencode($filterMerchant), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
+                        echo '</br><a href=http://' . $_SERVER['HTTP_HOST'] . str_replace('&filterMerchant=' . urlencode($filterMerchant), '', $_SERVER['REQUEST_URI']) . '>clear filter</a>';
                     }
                     ?>
                 </td>
