@@ -88,6 +88,7 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 * Query Strips Slashes so products with 's work correctly
 * Added a 'Starting Query' in Admin Options, the product page uses this query first if none has been given by the user. That way
   it doesn't just show a no results page.
+* Fixed some CSS issues
 
 = 1.2 =
 * Complete optimization

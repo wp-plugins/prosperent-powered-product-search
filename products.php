@@ -68,7 +68,7 @@ $minusBrands = explode(',', get_option('Negative_Brand'));
 $negativeBrands = array();
 foreach ($minusBrands as $negative)
 {
-	$negativeBrands[] = '!' . trim($negative);
+    $negativeBrands[] = '!' . trim($negative);
 }
 
 array_unshift($negativeBrands, $filterBrand);
@@ -78,7 +78,7 @@ $minusMerchants = explode(',', get_option('Negative_Merchant'));
 $negativeMerchants = array();
 foreach ($minusMerchants as $negative)
 {
-	$negativeMerchants[] = '!' . trim($negative);
+    $negativeMerchants[] = '!' . trim($negative);
 }
 
 array_unshift($negativeMerchants, $filterMerchant);
@@ -98,7 +98,7 @@ $prosperentApi = new Prosperent_Api(array(
     'groupBy'	       => 'productId',
     'enableFacets'   => !get_option('Enable_Facets') ? TRUE : get_option('Enable_Facets'),
     'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
-    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants 
+    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
 ));
 
 /*
@@ -165,7 +165,7 @@ if (!$noResults)
             <tr>
                 <td class="brands">
                     <?php
-                    echo (empty($filterBrand) ? '<div class="browseBrands">Browse by Brand: </div></p>' : '<div class="filteredBrand">Filtered by Brand: </div></p>');
+                    echo (empty($filterBrand) ? '<div class="browseBrands">Browse by Brand: </div>' : '<div class="filteredBrand">Filtered by Brand: </div>');
                     if (empty($facets['brand']))
                     {
                         echo '<div class="noBrands">No Brands Found</div>';
@@ -201,7 +201,7 @@ if (!$noResults)
                 </td>
                 <td class="merchants">
                     <?php
-                    echo (empty($filterMerchant) ? '<div class="browseMerchants">Browse by Merchant: </div></p>' : '<div class="filteredMerchants">Filtered by Merchant: </div></p>');
+                    echo (empty($filterMerchant) ? '<div class="browseMerchants">Browse by Merchant: </div>' : '<div class="filteredMerchants">Filtered by Merchant: </div>');
 
                     if (empty($facets['merchant']))
                     {
@@ -345,8 +345,8 @@ if (!$noResults)
                     </td>
                     <td class="productContent">
                         <div class="productTitle"><a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><span><?php echo $record['keyword']?></span></a></div>
-                        <p class="productDescription"><?php echo substr($record['description'], 0, 275) . '...'; ?></p>
-                        <p class="productBrandMerchant">
+                        <div class="productDescription"><?php echo substr($record['description'], 0, 275) . '...'; ?></div>
+                        <div class="productBrandMerchant">
                             <?php
                             if($record['brand'])
                             {
@@ -357,7 +357,7 @@ if (!$noResults)
                                 echo '<u>Merchant</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
                             }
                             ?>
-                        </p>
+                        </div>
                     </td>
                     <td class="productEnd">
                         <?php
@@ -365,15 +365,15 @@ if (!$noResults)
                         {
                             //we don't do anything
                             ?>
-                            <p class="productPriceNoSale"><span><?php echo '$' . $record['price']?></span></p>
+                            <div class="productPriceNoSale"><span><?php echo '$' . $record['price']?></span></div>
                             <?php
                         }
                         //otherwise strike-through Price and list the Price_Sale
                         else
                         {
                             ?>
-                            <p class="productPrice"><span>$<?php echo $record['price']?></span></p>
-                            <p class="productPriceSale"style="padding-bottom:15px;"><span>$<span><?php echo $record['price_sale']?></span></span></p>
+                            <div class="productPrice"><span>$<?php echo $record['price']?></span></div>
+                            <div class="productPriceSale"style="padding-bottom:15px;"><span>$<span><?php echo $record['price_sale']?></span></span></div>
                             <?php
                         }
                         ?>
