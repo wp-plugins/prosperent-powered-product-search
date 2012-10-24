@@ -51,10 +51,6 @@
     color:#aaa;
 }
 
-p {
-    margin-bottom: 0 !important;
-}
-
 .entry-content img, .comment-content img, .widget img {
     max-width:170%
 }
