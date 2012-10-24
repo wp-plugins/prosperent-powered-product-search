@@ -2,8 +2,8 @@
 Contributors: Prosperent Brandon
 Tags: Prosperent, products, search, money, SEO, affiliate
 Requires at least: 3.0
-Tested up to: 3.3.2
-Stable tag: trunk
+Tested up to: 3.4.2
+Stable tag: NA at this time
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,7 +41,7 @@ We have an ever growing community, which is always willing to answer questions a
         Default Sort, when someone first searches for a product, this is how data will be returned. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low. (Relevance desc is default.)
         Parent Directory- if you make the product page with a parent directory, insert that here with the leading slash (/) example: /sample-page (Default is blank, no parent.)
         Merchant Facets and Brand Facets. The number of each facets to show in the primary list. (Brand default is 12 and Merchant default is 10.)
-        Negative Brand and Merchant Filters.(Brand(s) and/or Merchant(s) to discard from results.)
+        Starting Query. When first visited, the site will use this query if one has not been given by the user. If no starting query is set, it shows the no results page.
 7.	The plugin automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
     the `showcase` template.)
 8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
@@ -83,11 +83,11 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
-= 1.4 =
-* Added Negative Brand and Merchant Filters. Allows you to remove certain brands/merchants from the results.
-
-= 1.3 =
-* Added a new Setting: Max Characters in Description: Sets the amount of characters shown in each product's description
+= 1.5 =
+* API updated
+* Query Strips Slashes so products with 's work correctly
+* Added a 'Starting Query' in Admin Options, the product page uses this query first if none has been given by the user. That way
+  it doesn't just show a no results page.
 
 = 1.2 =
 * Complete optimization
@@ -102,9 +102,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Notes ==
 
-**For those who had previously downloaded this plugin.**
-*I dropped one of the directory's in V1.2, so just upload the `prosperent-powered-product-search` to your plugin directory, and delete the `prosperent-search`. Activate the new plugin and it should retain the settings and product page still.*
+If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
 
-*You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.*
+Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
+
+You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 
 If you have any questions or suggestions, please feel free to ask me here or on the [Prosperent Community](http://community.prosperent.com/forum.php), or email me Prosperent Brandon at brandon@prosperent.com

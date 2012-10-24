@@ -47,34 +47,37 @@
 class Prosperent_Api implements Iterator
 {
     //constants
-    const VERSION = '2.0.8';
+    const VERSION = '2.1.2';
 
-    const ENDPOINT_PRODUCT     = 'product';
-    const ENDPOINT_COUPON      = 'coupon';
-    const ENDPOINT_MERCHANT    = 'merchant';
-    const ENDPOINT_BRAND       = 'brand';
-    const ENDPOINT_COMMISSION  = 'commission';
-    const ENDPOINT_TRANSACTION = 'transaction';
-    const ENDPOINT_TRENDS      = 'trends';
+    const ENDPOINT_PRODUCT           = 'product';
+    const ENDPOINT_COUPON            = 'coupon';
+    const ENDPOINT_MERCHANT          = 'merchant';
+    const ENDPOINT_BRAND             = 'brand';
+    const ENDPOINT_CELEBRITY         = 'celebrity';
+    const ENDPOINT_COMMISSION        = 'commission';
+    const ENDPOINT_TRANSACTION       = 'transaction';
+    const ENDPOINT_TRENDS            = 'trends';
 
     public static $endpoints = array(
         self::ENDPOINT_PRODUCT,
         self::ENDPOINT_COUPON,
         self::ENDPOINT_MERCHANT,
         self::ENDPOINT_BRAND,
+        self::ENDPOINT_CELEBRITY,
         self::ENDPOINT_COMMISSION,
         self::ENDPOINT_TRANSACTION,
         self::ENDPOINT_TRENDS
     );
 
     public static $endpointRoutes = array(
-        self::ENDPOINT_PRODUCT     => 'search',
-        self::ENDPOINT_COUPON      => 'coupon/search',
-        self::ENDPOINT_MERCHANT    => 'merchant',
-        self::ENDPOINT_BRAND       => 'brand',
-        self::ENDPOINT_COMMISSION  => 'commissions',
-        self::ENDPOINT_TRANSACTION => 'commissions/transactions',
-        self::ENDPOINT_TRENDS      => 'trends',
+        self::ENDPOINT_PRODUCT           => 'search',
+        self::ENDPOINT_COUPON            => 'coupon/search',
+        self::ENDPOINT_MERCHANT          => 'merchant',
+        self::ENDPOINT_BRAND             => 'brand',
+        self::ENDPOINT_CELEBRITY         => 'celebrity',
+        self::ENDPOINT_COMMISSION        => 'commissions',
+        self::ENDPOINT_TRANSACTION       => 'commissions/transactions',
+        self::ENDPOINT_TRENDS            => 'trends',
     );
 
     /**
@@ -85,11 +88,18 @@ class Prosperent_Api implements Iterator
     public static $imageUrlSize = '250x250';
 
     /**
-     * Merchant Logo Size
+     * Logo Size
      *
      * @var string
      */
     public static $logoUrlSize  = '120x60';
+
+    /**
+     * Photo Size
+     *
+     * @var string
+     */
+    public static $photoUrlSize  = '160x160';
 
     /**
      * cURL options
@@ -296,6 +306,13 @@ class Prosperent_Api implements Iterator
     protected $_enableFullData = true;
 
     /**
+     * Data response results
+     *
+     * @var array
+     */
+    protected $_results = array();
+
+    /**
      * Raw string response
      *
      * @var string
@@ -453,7 +470,7 @@ class Prosperent_Api implements Iterator
     );
 
     /**
-     * Image sizes
+     * Product Image sizes
      *
      * @var array
      */
@@ -471,6 +488,23 @@ class Prosperent_Api implements Iterator
     protected $_logoImageSizes = array(
         '120x60',
         '60x30'
+    );
+
+    /**
+     * Photo image sizes
+     *
+     * @var array
+     */
+    protected $_photoImageSizes = array(
+        '75x100',
+        '100x100',
+        '150x100',
+        '120x160',
+        '160x160',
+        '240x160',
+        '180x240',
+        '240x240',
+        '360x240'
     );
 
     /**
@@ -551,6 +585,26 @@ class Prosperent_Api implements Iterator
             $this->_filters[$regs[2]] = (array) $args[0];
 
             return $this;
+        }
+
+        // if requesting array of specific node data
+        if (preg_match('/^get(.+)Data$/i', $method, $regs))
+        {
+            $node = strtolower($regs[1]);
+
+            if ($node != 'all')
+            {
+                $this->getAllData();
+                $nodeData = $this->_resultsNode[strtolower($regs[1])];
+
+                // if unique is set to true
+                if ($args[0] == true)
+                {
+                    $nodeData = array_unique((array) $nodeData);
+                }
+
+                return $nodeData ? $nodeData : array();
+            }
         }
 
         $accessPortion = '_' . strtolower(str_replace('get', '', $method));
@@ -670,7 +724,7 @@ class Prosperent_Api implements Iterator
     }
 
     /**
-     * Returns endpoint rout
+     * Returns endpoint route
      *
      * @param  string $endpoint
      * @return string
@@ -830,6 +884,34 @@ class Prosperent_Api implements Iterator
     public function fetchBrand($brand = null)
     {
         return $this->fetchBrands((array) $brand);
+    }
+
+    /**
+     * Searches API for celebrities
+     *
+     * @param  array $celebrities
+     * @return array
+     */
+    public function fetchCelebrities(array $celebrities = array())
+    {
+        if (count($celebrities))
+        {
+            $this->set_filterCelebrity($celebrities);
+        }
+
+        return $this->fetch(self::ENDPOINT_CELEBRITY);
+    }
+
+    /**
+     * Search the celebrity endpoint for a
+     * specific celebrity
+     *
+     * @param  null|string|array $celebrity
+     * @return array
+     */
+    public function fetchCelebrity($celebrity = null)
+    {
+        return $this->fetchCelebrities((array) $celebrity);
     }
 
     /**
@@ -1100,14 +1182,21 @@ class Prosperent_Api implements Iterator
      */
     public function getAllData()
     {
-        $array = array();
-
-        foreach ($this->getData() as $key => $v)
+        if (!count($this->_results))
         {
-            $array[$key] = $v;
+            foreach ($this->getData() as $key => $v)
+            {
+                $this->_results[$key] = $v;
+
+                foreach ($v as $node => $value)
+                {
+                    $node = strtolower(preg_replace('/_/', '', $node));
+                    $this->_resultsNode[$node][] = $value;
+                }
+            }
         }
 
-        return $array;
+        return $this->_results;
     }
 
     /**
@@ -1424,9 +1513,24 @@ class Prosperent_Api implements Iterator
          */
         if (isset($current['image_url']))
         {
+            $defaultImageSize = self::$imageUrlSize;
+            $imageSizes       = $this->_imageSizes;
+
+            if (in_array($this->_endpoint, array(self::ENDPOINT_CELEBRITY)))
+            {
+                $defaultImageSize = self::$photoUrlSize;
+                $imageSizes       = $this->_photoImageSizes;
+            }
+
+            if (in_array($this->_endpoint, array(self::ENDPOINT_COUPON)))
+            {
+                $defaultImageSize = self::$logoUrlSize;
+                $imageSizes       = $this->_logoImageSizes;
+            }
+
             shuffle($this->_imageBaseUrls);
             $imageUrl = $current['image_url'];
-            $size = in_array(($size = $this->get_imageSize()), $this->_imageSizes) ? $size : self::$imageUrlSize;
+            $size = in_array(($size = $this->get_imageSize()), $imageSizes) ? $size : $defaultImageSize;
             $current['image_url'] = $this->_imageBaseUrls[0] . $size . '/' . $imageUrl;
         }
 
@@ -2363,7 +2467,7 @@ class Prosperent_Api implements Iterator
     /**
      * Get enableFacets
      *
-     * @return null|bool
+     * @return null|bool|string
      */
     public function get_enableFacets()
     {
@@ -2373,12 +2477,17 @@ class Prosperent_Api implements Iterator
     /**
      * Set enableFacets
      *
-     * @param  bool $enableFacets
+     * @param  bool|string $enableFacets
      * @return Prosperent_Api
      */
     public function set_enableFacets($enableFacets)
     {
-        $this->_enableFacets = ($this->_isFalse($enableFacets) ? false : true);
+        if (is_string($enableFacets) && !in_array($enableFacets, array('true', 'false', '0', '1', '')))
+        {
+            $enableFacets = (array) $enableFacets;
+        }
+
+        $this->_enableFacets = is_array($enableFacets) && count($enableFacets) ? $enableFacets : ($this->_isFalse($enableFacets) ? false : true);
         return $this;
     }
 

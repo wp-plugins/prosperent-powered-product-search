@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to an existing vbulletin installations using Prosperent's API.
-Version: 1.4
+Version: 1.5
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -76,10 +76,10 @@ function php_handler($args, $content="")
             #stage1 ([\[])([\/]*[\d\w][\s\d\w="'.$;*([\/]*)([\]])*
             #stage2 ([){1}([/]*[\d\w]+[\w\d\s  ]*?[ ]*?)([/]*\]){1}
             #stage3 (\[){1}([/]{0,1}[\d\w]+[\w\d\s  =\'\"\.\$]*?[ ]*?)([/]*\]){0,1}
-            #stage4 (\[{1})([\/]{0,1})([a-zA-z]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\Â£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\[\}\]\Â¬\Â¦\`\<\>]*)([\/]{0,1})(]{1})
+            #stage4 (\[{1})([\/]{0,1})([a-zA-z]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\[\}\]\¬\¦\`\<\>]*)([\/]{0,1})(]{1})
             $content = strip_tags($content);
             $count = "";
-            $content = preg_replace("/(\[{1})([\/]*)([a-zA-z\/]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\Â£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\}\Â¬\Â¦\`\<\>]*)([\/]*)([\]]{1})/ix","<$3$4>",$content,"-1", $count);
+            $content = preg_replace("/(\[{1})([\/]*)([a-zA-z\/]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\}\¬\¦\`\<\>]*)([\/]*)([\]]{1})/ix","<$3$4>",$content,"-1", $count);
             $content = htmlspecialchars($content, ENT_NOQUOTES);
             $content = str_replace("&amp;#8217;","'",$content);
             $content = str_replace("&amp;#8216;","'",$content);
@@ -183,6 +183,7 @@ function register_prosperentSettings()
     register_setting('prosperent-settings-group', 'Brand_Facets', 'intval');
     register_setting('prosperent-settings-group', 'Negative_Brand');
     register_setting('prosperent-settings-group', 'Negative_Merchant');
+    register_setting('prosperent-settings-group', 'Starting_Query');
 }
 
 function prosperent_settings_page()
@@ -196,61 +197,68 @@ function prosperent_settings_page()
             <?php do_settings_sections('prosperent-settings-group'); ?>
             <table class="form-table">
                 <tr valign="top">
-                <th scope="row"><b>API Key</b> (Enter your Api key here so you can earn your commissions)</th>
-                <td><input type="text" name="Api_Key" value="<?php echo get_option('Api_Key'); ?>" /></td>
+                    <th scope="row"><b>API Key</b> (Enter your Api key here so you can earn your commissions)</th>
+                    <td><input type="text" name="Api_Key" value="<?php echo get_option('Api_Key'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Enable Facets</b> (TRUE or FALSE)</th>
-                <td><input type="text" name="Enable_Facets" value="<?php echo get_option('Enable_Facets'); ?>" /></td>
+                    <th scope="row"><b>Enable Facets</b> (TRUE or FALSE)</th>
+                    <td><input type="text" name="Enable_Facets" value="<?php echo get_option('Enable_Facets'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Api Limit</b> (Number of results, max = 1000)</th>
-                <td><input type="text" name="Api_Limit" value="<?php echo get_option('Api_Limit'); ?>" /></td>
+                    <th scope="row"><b>Api Limit</b> (Number of results, max = 1000)</th>
+                    <td><input type="text" name="Api_Limit" value="<?php echo get_option('Api_Limit'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Pagination Limit</b> (Results to display on each page)</th>
-                <td><input type="text" name="Pagination_Limit" value="<?php echo get_option('Pagination_Limit'); ?>" /></td>
-                </tr>
-
-                <th scope="row"><b>Logo Image</b> (Display the original sized Prosperent Logo. Size is 167px x 50px.)</th>
-                <td><input type="text" name="Logo_Image" value="<?php echo get_option('Logo_Image'); ?>" /></td>
+                    <th scope="row"><b>Pagination Limit</b> (Results to display on each page)</th>
+                    <td><input type="text" name="Pagination_Limit" value="<?php echo get_option('Pagination_Limit'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Logo Image- Small</b> (Display the smaller Prosperent Logo. Size is 100px x 30px.)</th>
-                <td><input type="text" name="Logo_imageSmall" value="<?php echo get_option('Logo_imageSmall'); ?>" /></td>
+                    <th scope="row"><b>Logo Image</b> (Display the original sized Prosperent Logo. Size is 167px x 50px.)</th>
+                    <td><input type="text" name="Logo_Image" value="<?php echo get_option('Logo_Image'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Default Sort</b> (Sets the sort type default. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low)</th>
-                <td><input type="text" name="Default_Sort" value="<?php echo get_option('Default_Sort'); ?>" /></td>
-                </tr>
-
-                <th scope="row"><b>Parent Directory</b> (If you want your product page to have a parent directory, name that here.)</th>
-                <td><input type="text" name="Parent_Directory" value="<?php echo get_option('Parent_Directory'); ?>" /></td>
+                    <th scope="row"><b>Logo Image- Small</b> (Display the smaller Prosperent Logo. Size is 100px x 30px.)</th>
+                    <td><input type="text" name="Logo_imageSmall" value="<?php echo get_option('Logo_imageSmall'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Merchant Facets</b> (Number of merchants to display in primary facet list)</th>
-                <td><input type="text" name="Merchant_Facets" value="<?php echo get_option('Merchant_Facets'); ?>" /></td>
+                    <th scope="row"><b>Default Sort</b> (Sets the sort type default. relevance desc = Relevancy, price asc = Low to High, price desc = High to Low)</th>
+                    <td><input type="text" name="Default_Sort" value="<?php echo get_option('Default_Sort'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Brand Facets</b> (Number of merchants to display in primary facet list)</th>
-                <td><input type="text" name="Brand_Facets" value="<?php echo get_option('Brand_Facets'); ?>" /></td>
+                    <th scope="row"><b>Parent Directory</b> (If you want your product page to have a parent directory, name that here.)</th>
+                    <td><input type="text" name="Parent_Directory" value="<?php echo get_option('Parent_Directory'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Negative Brand Filters</b> (Brands to discard from results. If more than 1, seperate by commas. Enter the Brand name exactly how it appears in the results. (ie. Nike, Reebok, Merrell)</th>
-                <td><input type="text" name="Negative_Brand" value="<?php echo get_option('Negative_Brand'); ?>" /></td>
+                    <th scope="row"><b>Merchant Facets</b> (Number of merchants to display in primary facet list)</th>
+                    <td><input type="text" name="Merchant_Facets" value="<?php echo get_option('Merchant_Facets'); ?>" /></td>
                 </tr>
 
                 <tr valign="top">
-                <th scope="row"><b>Negative Merchant Filters</b> (Merchants to discard from results. If more than 1, seperate by commas. Enter the Merchant's name exactly how it appears in the results.(ie. 6pm, Zappos.com, endless)</th>
-                <td><input type="text" name="Negative_Merchant" value="<?php echo get_option('Negative_Merchant'); ?>" /></td>
+                    <th scope="row"><b>Brand Facets</b> (Number of merchants to display in primary facet list)</th>
+                    <td><input type="text" name="Brand_Facets" value="<?php echo get_option('Brand_Facets'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Negative Brand Filters</b> (Brands to discard from results)</th>
+                    <td><input type="text" name="Negative_Brand" value="<?php echo get_option('Negative_Brand'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Negative Merchant Filters</b> (Merchants to discard from results)</th>
+                    <td><input type="text" name="Negative_Merchant" value="<?php echo get_option('Negative_Merchant'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Starting Query</b> (When first visited, the site will use this query if one has not been given by the user. If no starting query is set, it shows the no results page.)</th>
+                    <td><input type="text" name="Starting_Query" value="<?php echo get_option('Starting_Query'); ?>" /></td>
                 </tr>
             </table>
 
