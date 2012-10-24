@@ -60,14 +60,15 @@ function toggle_hidden(id)
 $sort = !$_GET['sortBy'] ? (!get_option('Default_Sort') ? 'relevance desc' : get_option('Default_Sort')) : $_GET['sortBy'];
 $filterMerchant = $_GET['filterMerchant'];
 $filterBrand = $_GET['filterBrand'];
-$query = $_GET['q'];
+$q = ('' != $_GET['q']) ? $_GET['q'] : get_option('Starting_Query');
+$query = stripslashes($q);
 
 $minusBrands = explode(',', get_option('Negative_Brand'));
 
 $negativeBrands = array();
 foreach ($minusBrands as $negative)
 {
-    $negativeBrands[] = '!' . trim($negative);
+	$negativeBrands[] = '!' . trim($negative);
 }
 
 array_unshift($negativeBrands, $filterBrand);
@@ -77,7 +78,7 @@ $minusMerchants = explode(',', get_option('Negative_Merchant'));
 $negativeMerchants = array();
 foreach ($minusMerchants as $negative)
 {
-    $negativeMerchants[] = '!' . trim($negative);
+	$negativeMerchants[] = '!' . trim($negative);
 }
 
 array_unshift($negativeMerchants, $filterMerchant);
@@ -97,7 +98,7 @@ $prosperentApi = new Prosperent_Api(array(
     'groupBy'	       => 'productId',
     'enableFacets'   => !get_option('Enable_Facets') ? TRUE : get_option('Enable_Facets'),
     'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
-    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
+    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants 
 ));
 
 /*
