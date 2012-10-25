@@ -86,7 +86,6 @@ array_unshift($negativeMerchants, $filterMerchant);
 /*
 /  Prosperent API Query
 */
-
 require_once('Prosperent_Api.php');
 $prosperentApi = new Prosperent_Api(array(
     'api_key'        => get_option('Api_Key'),
@@ -94,9 +93,9 @@ $prosperentApi = new Prosperent_Api(array(
     'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
     'page'           => 1,
     'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
-    'sortBy'	       => $sort,
-    'groupBy'	       => 'productId',
-    'enableFacets'   => !get_option('Enable_Facets') ? TRUE : get_option('Enable_Facets'),
+    'sortBy'	     => $sort,
+    'groupBy'	     => 'productId',
+    'enableFacets'   => get_option('Enable_Facets'),
     'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
     'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
 ));
@@ -116,15 +115,14 @@ $facets = $prosperentApi -> getFacets();
 /  If no results, or the user clicked search when 'Search Products...'
 /  was in the search field, displays 'No Results'
 */
-if ($query == 'Search Products...' || empty($results) || $query == 'No Query')
+if ($query == 'Search Products...' || empty($results))
 {
     echo '<div class="noResults">No Results</div>' . '</br>';
 
     echo '<div class="noResults-secondary">Please refine your search.</div>';
-    $noResults = TRUE;
 }
 
-if (!$noResults)
+else
 {
     if ($prosperentApi->get_enableFacets() == 1)
     {
