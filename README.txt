@@ -83,6 +83,9 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 1.6 =
+* Updated Admin Options.
+
 = 1.5 =
 * API updated
 * Query Strips Slashes so products with 's work correctly

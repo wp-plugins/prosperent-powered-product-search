@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to an existing vbulletin installations using Prosperent's API.
-Version: 1.5
+Version: 1.6
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -202,8 +202,11 @@ function prosperent_settings_page()
                 </tr>
 
                 <tr valign="top">
-                    <th scope="row"><b>Enable Facets</b> (TRUE or FALSE)</th>
-                    <td><input type="text" name="Enable_Facets" value="<?php echo get_option('Enable_Facets'); ?>" /></td>
+                    <th scope="row"><b>Enable Facets</b></th>
+                    <td>
+                        <input type="radio" name="Enable_Facets" value="1" <?php checked( '1', get_option( 'Enable_Facets' ) ); ?>> Enable<br>
+                        <input type="radio" name="Enable_Facets" value="0" <?php checked( '0', get_option( 'Enable_Facets' ) ); ?>> Disable
+                    </td>
                 </tr>
 
                 <tr valign="top">
@@ -218,12 +221,18 @@ function prosperent_settings_page()
 
                 <tr valign="top">
                     <th scope="row"><b>Logo Image</b> (Display the original sized Prosperent Logo. Size is 167px x 50px.)</th>
-                    <td><input type="text" name="Logo_Image" value="<?php echo get_option('Logo_Image'); ?>" /></td>
+                    <td>
+                        <input type="radio" name="Logo_Image" value="1" <?php checked( '1', get_option( 'Logo_Image' ) ); ?>> Enable<br>
+                        <input type="radio" name="Logo_Image" value="0" <?php checked( '0', get_option( 'Logo_Image' ) ); ?>> Disable
+                    </td>
                 </tr>
 
                 <tr valign="top">
                     <th scope="row"><b>Logo Image- Small</b> (Display the smaller Prosperent Logo. Size is 100px x 30px.)</th>
-                    <td><input type="text" name="Logo_imageSmall" value="<?php echo get_option('Logo_imageSmall'); ?>" /></td>
+                    <td>
+                        <input type="radio" name="Logo_imageSmall" value="1" <?php checked( '1', get_option( 'Logo_imageSmall' ) ); ?>> Enable<br>
+                        <input type="radio" name="Logo_imageSmall" value="0" <?php checked( '0', get_option( 'Logo_imageSmall' ) ); ?>> Disable
+                    </td>
                 </tr>
 
                 <tr valign="top">
@@ -383,14 +392,8 @@ function Prospere_Search()
         <table>
             <tr>
                 <?php
-                // $logo_image will return the Prosperent Logo in front of the input box
-                $logo_image = !get_option('Logo_Image') ? TRUE : strtoupper(get_option('Logo_Image'));
-                $smaller_logo = !get_option('Logo_imageSmall') ? FALSE : strtoupper(get_option('Logo_imageSmall'));
-                $logo_image = strval($logo_image);
-                $smaller_logo = strval($smaller_logo);
-
                 // if $logo_image is set to TRUE, this statement will output the Prosperent logo before the input box
-                if ('TRUE' == $logo_image)
+                if (get_option('Logo_Image'))
                 {
                     ?>
                     <td class="image"><a href="http://prosperent.com" title="Prosperent Search"> <img src="<?php echo plugins_url('/img/logo_small.png', __FILE__); ?>" /> </a></td>
@@ -401,7 +404,7 @@ function Prospere_Search()
                     </style>
                     <?php
                 }
-                if ('TRUE' == $smaller_logo)
+                if (get_option('Logo_imageSmall'))
                 {
                     ?>
                     <td class="image"><a href="http://prosperent.com" title="Prosperent"> <img src="<?php echo plugins_url('/img//logo_smaller.png', __FILE__); ?>"/> </a></td>
