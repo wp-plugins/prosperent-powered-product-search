@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Prosperent Product Search
-Description: Plugin designed to add a product search to an existing vbulletin installations using Prosperent's API.
-Version: 1.6
+Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
+Version: 1.7
 Author: Prosperent Brandon
 License: GPL2
 */

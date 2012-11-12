@@ -93,8 +93,8 @@ $prosperentApi = new Prosperent_Api(array(
     'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
     'page'           => 1,
     'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
-    'sortBy'	     => $sort,
-    'groupBy'	     => 'productId',
+    'sortBy'	       => $sort,
+    'groupBy'	       => 'productId',
     'enableFacets'   => get_option('Enable_Facets'),
     'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
     'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
@@ -338,11 +338,11 @@ else
             ?>
                 <tr class="productBlock">
                     <td class="productImage">
-                        <a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']?>';return false;"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
+                        <a href="<?php echo $record['affiliate_url']; ?>"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
                     </td>
                     </td>
                     <td class="productContent">
-                        <div class="productTitle"><a href="http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><span><?php echo $record['keyword']?></span></a></div>
+                        <div class="productTitle"><a href="<?php echo $record['affiliate_url']; ?>"><span><?php echo $record['keyword']?></span></a></div>
                         <div class="productDescription"><?php echo substr($record['description'], 0, 275) . '...'; ?></div>
                         <div class="productBrandMerchant">
                             <?php
@@ -375,7 +375,7 @@ else
                             <?php
                         }
                         ?>
-                        <a href="<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" onclick="javascript:document.location='<?php echo $record['affiliate_url']; ?>';return false;"><img src="<?php echo plugins_url('/img/visit_store_button.gif', __FILE__);?> "></a>
+                        <a href="<?php echo $record['affiliate_url']; ?>"><img src="<?php echo plugins_url('/img/visit_store_button.gif', __FILE__);?> "></a>
                     </td>
                 </tr>
             <?php
