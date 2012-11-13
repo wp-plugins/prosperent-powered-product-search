@@ -58,12 +58,22 @@ function toggle_hidden(id)
 
 <?php
 $sort = !$_GET['sortBy'] ? (!get_option('Default_Sort') ? 'relevance desc' : get_option('Default_Sort')) : $_GET['sortBy'];
-$filterMerchant = $_GET['filterMerchant'];
-$filterBrand = $_GET['filterBrand'];
-$q = ('' != $_GET['q']) ? $_GET['q'] : get_option('Starting_Query');
+$filterMerchant = stripslashes($_GET['filterMerchant']);
+$filterBrand = stripslashes($_GET['filterBrand']);
+if (!$_GET['q'] && get_option('Starting_Query'))
+{
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?q=' . get_option('Starting_Query');
+    $q = get_option('Starting_Query');
+}
+else
+{
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $q = $_GET['q'];
+}
+
 $query = stripslashes($q);
 
-$minusBrands = explode(',', get_option('Negative_Brand'));
+$minusBrands = explode(',', stripslashes(get_option('Negative_Brand')));
 
 $negativeBrands = array();
 foreach ($minusBrands as $negative)
@@ -73,7 +83,7 @@ foreach ($minusBrands as $negative)
 
 array_unshift($negativeBrands, $filterBrand);
 
-$minusMerchants = explode(',', get_option('Negative_Merchant'));
+$minusMerchants = explode(',', stripslashes(get_option('Negative_Merchant')));
 
 $negativeMerchants = array();
 foreach ($minusMerchants as $negative)
@@ -93,8 +103,8 @@ $prosperentApi = new Prosperent_Api(array(
     'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
     'page'           => 1,
     'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
-    'sortBy'	       => $sort,
-    'groupBy'	       => 'productId',
+    'sortBy'	     => $sort,
+    'groupBy'	     => 'productId',
     'enableFacets'   => get_option('Enable_Facets'),
     'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
     'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
@@ -174,11 +184,11 @@ else
                         {
                             if ($i < count($brands1) - 1)
                             {
-                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>, ';
+                                echo '<a href=' . $url . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>, ';
                 }
                             else
                             {
-                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>';
+                                echo '<a href=' . $url . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a>';
                 }
                         }
                         if (!empty($brands2))
@@ -211,12 +221,12 @@ else
                         {
                             if ($i < count($merchants1) - 1)
                             {
-                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>, ';
+                                echo '<a href=' . $url . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>, ';
                             }
 
                             else
                             {
-                                echo '<a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>';
+                                echo '<a href=' . $url . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a>';
                             }
                         }
                         if (!empty($merchants2))
@@ -248,7 +258,7 @@ else
                     echo '<tr>';
                 }
 
-                echo '<td style="width:1%; padding:5px; height:30px;"><a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a></td>';
+                echo '<td style="width:1%; padding:5px; height:30px;"><a href=' . $url . '&filterBrand=' . urlencode($brand['value']) . '>' . $brand['value'] . ' (' . $brand['count'] . ')</a></td>';
 
                 if ($i % 5 == 4 && $i >= 9)
                 {
@@ -270,7 +280,7 @@ else
                     echo '<tr>';
                 }
 
-                echo '<td style="padding:5px; height:30px; width:1%;"><a href=http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a></td>';
+                echo '<td style="padding:5px; height:30px; width:1%;"><a href=' . $url . '&filterMerchant=' . urlencode($merchant['value']) . '>' . $merchant['value'] . ' (' . $merchant['count'] . ')</a></td>';
 
                 if ($i % 4 == 3 && $i >= 7)
                 {
@@ -290,7 +300,7 @@ else
     echo '<div class="totalFound">' . $totalFound . ' results for <b>' . strtolower($query) . '</b></div>';
     ?>
 
-     <form name="priceSorter" method="GET" action="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
+     <form name="priceSorter" method="GET" action="<?php echo $url; ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
         <input type="hidden" name="q" value="<?php echo $query;?>">
         <input type="hidden" name="filterBrand" value="<?php echo $filterBrand;?>">
         <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
@@ -348,11 +358,11 @@ else
                             <?php
                             if($record['brand'])
                             {
-                                echo '<u>Brand</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterBrand=' . urlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
+                                echo '<u>Brand</u>: <a href="' . $url . '&filterBrand=' . urlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
                             }
                             if($record['merchant'])
                             {
-                                echo '<u>Merchant</u>: <a href="http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '&filterMerchant=' . urlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
+                                echo '<u>Merchant</u>: <a href="' . $url . '&filterMerchant=' . urlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
                             }
                             ?>
                         </div>

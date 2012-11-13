@@ -83,6 +83,9 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 1.8 =
+* Fixed issues with Starting Query when a facet was clicked.
+
 = 1.7 =
 * Changed how the product links work.
 

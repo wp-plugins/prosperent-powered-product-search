@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 1.7
+Version: 1.8
 Author: Prosperent Brandon
 License: GPL2
 */
