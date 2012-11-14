@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 1.8
+Version: 1.9
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -25,131 +25,21 @@ License: GPL2
 
 add_action( 'wp_enqueue_scripts', 'prospere_stylesheets');
 add_action('admin_menu', 'prosperent_create_menu');
+add_shortcode('prosper_store','prosper_store');
 
-add_shortcode('php','php_handler');
-add_shortcode('PHP','php_handler');
-add_shortcode('allowphp','php_handler');
-add_shortcode('ALLOWPHP','php_handler');
-add_filter('the_content', 'apip_advanced_filter',0);
-
-function apip_advanced_filter($args)
+function prosper_store()
 {
-    $options = get_option("allowPHP_options");
-    if(isset($options['use_advanced_filter'])){
-        if($options['use_advanced_filter'] == "1"){
-            remove_shortcode("php");
-            $args = str_ireplace("[php]","<?php ",$args);
-            $args = str_ireplace("[/php]"," ?>",$args);
-            $args = str_ireplace("[php useadvancedfilter]","<?php ",$args);
-            $args = str_ireplace("[/php useadvancedfilter]"," ?>",$args);
-            ob_start();
-            eval("?>".$args);
-            $returned = ob_get_clean();
-            return $returned;
-        }
-    }
-    $args = str_ireplace("[php useadvancedfilter]","<?php ",$args);
-    $args = str_ireplace("[/php useadvancedfilter]"," ?>",$args);
     ob_start();
-    eval("?>".$args);
-    $returned = ob_get_clean();
-    return $returned;
+    include(plugin_dir_path(__FILE__) . 'products.php');
+    $store = ob_get_clean();
+    return $store;
 }
 
-function php_handler($args, $content="")
+function prospere_stylesheets()
 {
-    global $is_comment;
-    global $wpdb;
-    $options = get_option("allowPHP_options");
-    if(isset($options['preparse'])){$preparse = $options['preparse'];}else{$preparse = 0;}
-    if($is_comment){return "";}
-    $res = "";
-    extract( shortcode_atts(array('debug' => 0,'silentdebug' => 0, 'function' => -1, 'mode'=>''), $args));
-    if(!isset($args['mode'])){$mode="";}else{$mode = $args['mode'];}
-    if(!isset($args['debug'])){$debug="0";}else{$debug = $args['debug'];}
-    if(!isset($args['silentdebug'])){$silentdebug="0";}else{$silentdebug = $args['silentdebug'];}
-    if($debug == 1){error_reporting(E_ALL);ini_set("display_errors","1");}
-    if($function == ""){$function == "-1";}
-    if($function == -1){
-        if(($preparse!= 1 && $mode != "old") || $mode == "new"){
-            #goodregextouse: /([\[])([\/]*[\d\w][\s\d\w\=\"\']*)([\]])/
-            #stage1 ([\[])([\/]*[\d\w][\s\d\w="'.$;*([\/]*)([\]])*
-            #stage2 ([){1}([/]*[\d\w]+[\w\d\s  ]*?[ ]*?)([/]*\]){1}
-            #stage3 (\[){1}([/]{0,1}[\d\w]+[\w\d\s  =\'\"\.\$]*?[ ]*?)([/]*\]){0,1}
-            #stage4 (\[{1})([\/]{0,1})([a-zA-z]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\[\}\]\¬\¦\`\<\>]*)([\/]{0,1})(]{1})
-            $content = strip_tags($content);
-            $count = "";
-            $content = preg_replace("/(\[{1})([\/]*)([a-zA-z\/]{1}[a-zA-Z0-9]*[^\'\"])([a-zA-Z0-9 \!\"\£\$\%\^\&\*\*\(\)\_\-\+\=\|\\\,\.\/\?\:\;\@\'\#\~\{\}\¬\¦\`\<\>]*)([\/]*)([\]]{1})/ix","<$3$4>",$content,"-1", $count);
-            $content = htmlspecialchars($content, ENT_NOQUOTES);
-            $content = str_replace("&amp;#8217;","'",$content);
-            $content = str_replace("&amp;#8216;","'",$content);
-            $content = str_replace("&amp;#8242;","'",$content);
-            $content = str_replace("&amp;#8220;","\"",$content);
-            $content = str_replace("&amp;#8221;","\"",$content);
-            $content = str_replace("&amp;#8243;","\"",$content);
-            $content = str_replace("&amp;#039;","'",$content);
-            $content = str_replace("&#039;","'",$content);
-            $content = str_replace("&amp;#038;","&",$content);
-            $content = str_replace("&amp;gt;",'>',$content);
-            $content = str_replace("&amp;lt;",'<',$content);
-            $content = htmlspecialchars_decode($content);
-        }
-        else{
-            $content =(htmlspecialchars($content,ENT_QUOTES));$content = str_replace("&amp;#8217;","'",$content);$content = str_replace("&amp;#8216;","'",$content);$content = str_replace("&amp;#8242;","'",$content);$content = str_replace("&amp;#8220;","\"",$content);$content = str_replace("&amp;#8221;","\"",$content);$content = str_replace("&amp;#8243;","\"",$content);$content = str_replace("&amp;#039;","'",$content);$content = str_replace("&#039;","'",$content);$content = str_replace("&amp;#038;","&",$content);$content = str_replace("&amp;lt;br /&amp;gt;"," ", $content);$content = htmlspecialchars_decode($content);$content = str_replace("<br />"," ",$content);$content = str_replace("<p>"," ",$content);$content = str_replace("</p>"," ",$content);$content = str_replace("[br/]","<br/>",$content);$content = str_replace("\\[","&#91;",$content);$content = str_replace("\\]","&#93;",$content);$content = str_replace("[","<",$content);$content = str_replace("]",">",$content);$content = str_replace("&#91;",'[',$content);$content = str_replace("&#93;",']',$content);$content = str_replace("&gt;",'>',$content);$content = str_replace("&lt;",'<',$content);
-        }
-    }
-    else{
-        $show404 = $options['show404'];
-        $fourohfourmsg = $options['fourohfourmsg'];
-        if($fourohfourmsg != 0){
-            $fourohfourmsg = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."allowPHP_functions WHERE id = '".$fourohfourmsg."';");
-            $fourohfourmsg = htmlspecialchars_decode($fourohfourmsg[0]->function);
-        }
-        else{
-            $fourohfourmsg = '?><div style="font-weight:bold; color:red">Error 404: Function Not Found</div>';
-        }
-        $id = $args['function'];
-        $sql = "SELECT function FROM ".$wpdb->prefix."allowPHP_functions WHERE id='".$id."'";
-        $res = $wpdb->get_results($wpdb->prepare($sql));
-        if(sizeof($res) == 0){
-            if($show404 == 1){$content = $fourohfourmsg;}
-        }
-        else{
-            $content = htmlspecialchars_decode($res[0]->function);
-        }
-    }
-    ob_start();
-    eval ($content);
-    if($debug == 1||$silentdebug == 1){
-        if($silentdebug == 1){
-            echo "\n\n<!-- ALLOW PHP SILENT DEBUG MODE - - > \n\n\n";
-        }
-        else{
-            echo "<hr />";
-            echo "<p align='center'>Allow PHP Debug</p>";
-        }
-        if(sizeof($res)==0 && $function != -1){
-            $content = "Function id : $function : cannot be found<br/>";
-        }else{
-            $content =(htmlspecialchars($content,ENT_QUOTES));
-        }
-        echo ("<pre>".$content."</pre>");
-        if($silentdebug == 1){
-            echo "\n\n\n<- - END ALLOW PHP SILENT DEBUG MODE -->\n\n";
-        }
-        else{
-            echo "<p align='center'>End Allow PHP Debug</p>";
-            echo "<hr />";
-        }
-    }
-    $returned = ob_get_clean();
-    return $returned;
-}
-
-function prospere_stylesheets() {
     global $wp_styles;
 
-       // Product Search CSS for results and search
+    // Product Search CSS for results and search
     wp_register_style( 'prospere_main_style', plugins_url('/css/productSearch.css', __FILE__) );
     wp_enqueue_style( 'prospere_main_style' );
 
@@ -210,7 +100,7 @@ function prosperent_settings_page()
                 </tr>
 
                 <tr valign="top">
-                    <th scope="row"><b>Api Limit</b> (Number of results, max = 1000)</th>
+                    <th scope="row"><b>Api Limit</b> (Number of results, max = 100)</th>
                     <td><input type="text" name="Api_Limit" value="<?php echo get_option('Api_Limit'); ?>" /></td>
                 </tr>
 
@@ -281,27 +171,27 @@ function prosperent_settings_page()
 }
 
 /* Runs when plugin is activated */
-register_activation_hook(__FILE__,'my_plugin_install');
+register_activation_hook(__FILE__,'prosperent_store_install');
 
 /* Runs on plugin deactivation*/
-register_deactivation_hook( __FILE__, 'my_plugin_remove' );
+register_deactivation_hook( __FILE__, 'prosperent_store_remove' );
 
-function my_plugin_install()
+function prosperent_store_install()
 {
     global $wpdb;
 
-    $the_page_title = 'product';
+    $the_page_title = 'Products';
     $the_page_name = 'Prosperent Search';
 
     // the menu entry...
-    delete_option("my_plugin_page_title");
-    add_option("my_plugin_page_title", $the_page_title, '', 'yes');
+    delete_option("prosperent_store_page_title");
+    add_option("prosperent_store_page_title", $the_page_title, '', 'yes');
     // the slug...
-    delete_option("my_plugin_page_name");
-    add_option("my_plugin_page_name", $the_page_name, '', 'yes');
+    delete_option("prosperent_store_page_name");
+    add_option("prosperent_store_page_name", $the_page_name, '', 'yes');
     // the id...
-    delete_option("my_plugin_page_id");
-    add_option("my_plugin_page_id", '0', '', 'yes');
+    delete_option("prosperent_store_page_id");
+    add_option("prosperent_store_page_id", '0', '', 'yes');
 
     $the_page = get_page_by_title( $the_page_title );
 
@@ -310,14 +200,12 @@ function my_plugin_install()
         // Create post object
         $_p = array();
         $_p['post_title'] = $the_page_title;
-        $_p['post_content'] = "[php]
-                               include(plugin_dir_path(__FILE__) . 'products.php');
-                               [/php]";
+        $_p['post_content'] = "[prosper_store] [/prosper_store]";
         $_p['post_status'] = 'publish';
         $_p['post_type'] = 'page';
         $_p['comment_status'] = 'closed';
         $_p['ping_status'] = 'closed';
-        $_p['post_category'] = array(2); // the default 'Uncatrgorised'
+        $_p['post_category'] = array(0); // the default 'Uncatrgorised'
 
         // Insert the post into the database
         $the_page_id = wp_insert_post( $_p );
@@ -325,7 +213,6 @@ function my_plugin_install()
     }
     else {
         // the plugin may have been previously active and the page may just be trashed...
-
         $the_page_id = $the_page->ID;
 
         //make sure the page is not trashed...
@@ -334,56 +221,29 @@ function my_plugin_install()
 
     }
 
-    delete_option( 'my_plugin_page_id' );
-    add_option( 'my_plugin_page_id', $the_page_id );
+    delete_option( 'prosperent_store_page_id' );
+    add_option( 'prosperent_store_page_id', $the_page_id );
 
 }
 
-function my_plugin_remove()
+function prosperent_store_remove()
 {
     global $wpdb;
 
-    $the_page_title = get_option( "my_plugin_page_title" );
-    $the_page_name = get_option( "my_plugin_page_name" );
+    $the_page_title = get_option( "prosperent_store_page_title" );
+    $the_page_name = get_option( "prosperent_store_page_name" );
 
-    //  the id of our page...
-    $the_page_id = get_option( 'my_plugin_page_id' );
-    if( $the_page_id ) {
-
+    // the id of our page...
+    $the_page_id = get_option( 'prosperent_store_page_id' );
+    if( $the_page_id )
+    {
         wp_delete_post( $the_page_id ); // this will trash, not delete
-
     }
 
-    delete_option("my_plugin_page_title");
-    delete_option("my_plugin_page_name");
-    delete_option("my_plugin_page_id");
-
+    delete_option("prosperent_store_page_title");
+    delete_option("prosperent_store_page_name");
+    delete_option("prosperent_store_page_id");
 }
-
-function my_plugin_query_parser( $q )
-{
-    $the_page_name = get_option( "my_plugin_page_name" );
-    $the_page_id = get_option( 'my_plugin_page_id' );
-
-    $qv = $q->query_vars;
-
-    // have we NOT used permalinks...?
-    if( !$q->did_permalink AND ( isset( $q->query_vars['page_id'] ) ) AND ( intval($q->query_vars['page_id']) == $the_page_id ) ) {
-        $q->set('my_plugin_page_is_called', TRUE );
-        return $q;
-    }
-    elseif( isset( $q->query_vars['pagename'] ) AND ( ($q->query_vars['pagename'] == $the_page_name) OR ($_pos_found = strpos($q->query_vars['pagename'],$the_page_name.'/') === 0) ) ) {
-        $q->set('my_plugin_page_is_called', TRUE );
-        return $q;
-    }
-    else {
-        $q->set('my_plugin_page_is_called', FALSE );
-        return $q;
-    }
-}
-
-add_filter( 'parse_query', 'my_plugin_query_parser' );
-
 
 function Prospere_Search()
 {
@@ -500,5 +360,3 @@ function prospere_header() {
 }
 
 add_action('prospere_header', 'Prospere_Search');
-
-

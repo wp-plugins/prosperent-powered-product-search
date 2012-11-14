@@ -1,14 +1,11 @@
 <?php
-function pagination($pages = '', $range)
+function prosper_pagination($pages = '', $range)
 {
-     $showitems = ($range * 2)+1;
-
-     global $paged;
+     global $paged, $wp_query;;
      if(empty($paged)) $paged = 1;
 
      if($pages == '')
      {
-         global $wp_query;
          $pages = $wp_query->max_num_pages;
          if(!$pages)
          {
@@ -19,9 +16,8 @@ function pagination($pages = '', $range)
      if(1 != $pages)
      {
          echo "<div class=\"pagination\"><span>Page ".$paged." of ".$pages."</span>";
-         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Previous</a>";
-         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; First</a>";
-
+         if($paged > 2 && $paged <= $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; First</a>";
+         if($paged > 1) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Previous</a>";
 
          for ($i=1; $i <= $pages; $i++)
          {
@@ -31,9 +27,9 @@ function pagination($pages = '', $range)
              }
          }
 
-         if ($paged < $pages && $showitems < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Next &rsaquo;</a>";
-         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>Last &raquo;</a>";
-         echo "</div>\n";
+         if ($paged < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Next &rsaquo;</a>";
+         if ($paged < $pages && $paged < $pages-1) echo "<a href='".get_pagenum_link($pages)."'>Last &raquo;</a>";
+         echo "</div>";
      }
 }
 ?>
@@ -101,7 +97,6 @@ $prosperentApi = new Prosperent_Api(array(
     'api_key'        => get_option('Api_Key'),
     'query'          => $query,
     'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
-    'page'           => 1,
     'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
     'sortBy'	     => $sort,
     'groupBy'	     => 'productId',
@@ -128,7 +123,6 @@ $facets = $prosperentApi -> getFacets();
 if ($query == 'Search Products...' || empty($results))
 {
     echo '<div class="noResults">No Results</div>' . '</br>';
-
     echo '<div class="noResults-secondary">Please refine your search.</div>';
 }
 
@@ -336,7 +330,6 @@ else
 
     // Breaks the array into smaller chunks for each page depending on $limit
     $results = array_slice($results, $limitLower, $limit, true);
-
     ?>
 
     <table id="productList">
@@ -393,5 +386,5 @@ else
         ?>
     </table>
     <?php
-    pagination($pages, $pages);
+    prosper_pagination($pages, $pages);
 }
