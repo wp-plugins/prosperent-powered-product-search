@@ -9,6 +9,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds a product search box to your blog, which viewers can use to search and make purchases and you will earn a commission.
 
+Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
+
 == Description ==
 
 *Prosperent Product Search*
@@ -82,6 +84,13 @@ We take a 30% commission and pay you the other 70%. If you are a larger publishe
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
 
 == Changelog ==
+
+= 1.9 =
+DEACTIVATE and REACTIVATE this plugin to make the new shortcode changes take effect.
+
+* Fixed collisions that the pagination class was having with other classes in some instances.
+* Changed the shortcode to be [prosper_store][/prosper_store] (Placing that on any other pages will give you another store.
+* Updated pagination, now includes First, Last, Previous and Next buttons.
 
 = 1.8 =
 * Fixed issues with Starting Query when a facet was clicked.
