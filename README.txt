@@ -37,6 +37,7 @@ We have an ever growing community, which is always willing to answer questions a
 4.	Activate the plugin through the 'Plugins' menu in WordPress.
 5.  Under 'Appearance', go to 'Widgets' and add the 'Prosperent Store' widget where you'd like it. You can give it a title if you want as well.
 6.	Go to the `Prosperent Settings` under Settings and edit those that you'd like, don't forget to add your API key here.
+
         * API Key, input the API Key that you got earlier.
         * Facets, True or False, this setting enables or disables the use of facets. Facets allow someone to narrow down a result by brand and merchant. (Facets are enabled by default.)
         * Limit, The is the API limit, the max is 100. Set anywhere between 1-100. (Default is 100.)
@@ -48,6 +49,7 @@ We have an ever growing community, which is always willing to answer questions a
         * Base URL. If you have a different url from 'your-blog.com/product' that you want the search query to be posted to (For example, if you created a 'Shop' page, with the url your-blog.com/shop, change this to shop).
         * Additional CSS. Additional CSS for the shortcode search bar if used.
         * Logo Image and Logo Image-Small, these are the logos associated with search input box. Only set one to TRUE. (Logo Image is by default set to TRUE.)
+
 7.	The plugin automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
     the `showcase` template.)
     Also, now that the results is shortcoded, you can add [prosper_store][/prosper_store] to any page.
@@ -101,6 +103,7 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 = 2.0 =
 Another big Update
+
 * The main search bar is now a widget that you can place in your sidebars or footer areas.
 * The search bar has also been added as a shortcode for those who want to place it somewhere else. [prosper_search][/prosper_search]
 * Added a search bar to the search results page for easy access and searching.
