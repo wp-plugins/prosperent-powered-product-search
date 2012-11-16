@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 1.9
+Version: 2.0
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -26,6 +26,47 @@ License: GPL2
 add_action( 'wp_enqueue_scripts', 'prospere_stylesheets');
 add_action('admin_menu', 'prosperent_create_menu');
 add_shortcode('prosper_store','prosper_store');
+add_shortcode('prosper_search', 'Prospere_Search_Short');
+add_action( 'widgets_init', create_function( '', 'register_widget( "Prosper_Store_Widget" );' ) );
+
+class Prosper_Store_Widget extends WP_Widget
+{
+    function __construct()
+    {
+        $widget_ops = array('classname' => 'prosperent_store_widget', 'description' => __( "Displays the Prosperent search bar") );
+        parent::__construct('prosperent_store', __('Prosperent Store'), $widget_ops);
+    }
+
+    function widget( $args, $instance )
+    {
+        extract($args);
+        $title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+
+        echo $before_widget;
+        if ( $title )
+            echo $before_title . $title . $after_title;
+        Prospere_Search_Widget();
+        echo $after_widget;
+    }
+
+    function update( $new_instance, $old_instance )
+    {
+        $new_instance = (array) $new_instance;
+        $new_instance = wp_parse_args((array) $new_instance, array( 'title' => ''));
+        $instance['title'] = strip_tags($new_instance['title']);
+        return $instance;
+    }
+
+    function form( $instance )
+    {
+        $instance = wp_parse_args( (array) $instance, array( 'title' => '') );
+        $title = $instance['title'];
+        ?>
+        <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
+        <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+        <?php
+    }
+}
 
 function prosper_store()
 {
@@ -34,6 +75,7 @@ function prosper_store()
     $store = ob_get_clean();
     return $store;
 }
+
 
 function prospere_stylesheets()
 {
@@ -51,7 +93,7 @@ function prospere_stylesheets()
 function prosperent_create_menu()
 {
     //create new top-level menu
-    add_menu_page('Prosperent Plugin Settings', 'Prosperent Settings', 'administrator', __FILE__, 'prosperent_settings_page', plugins_url('/img/prosperent.png', __FILE__));
+    add_options_page('Prosperent Plugin Settings', 'Prosperent Settings', 'administrator', __FILE__, 'prosperent_settings_page', plugins_url('/img/prosperent.png', __FILE__));
 
     //call register settings function
     add_action( 'admin_init', 'register_prosperentSettings' );
@@ -74,6 +116,8 @@ function register_prosperentSettings()
     register_setting('prosperent-settings-group', 'Negative_Brand');
     register_setting('prosperent-settings-group', 'Negative_Merchant');
     register_setting('prosperent-settings-group', 'Starting_Query');
+    register_setting('prosperent-settings-group', 'Additional_CSS');
+    register_setting('prosperent-settings-group', 'Base_URL');
 }
 
 function prosperent_settings_page()
@@ -94,8 +138,8 @@ function prosperent_settings_page()
                 <tr valign="top">
                     <th scope="row"><b>Enable Facets</b></th>
                     <td>
-                        <input type="radio" name="Enable_Facets" value="1" <?php checked( '1', get_option( 'Enable_Facets' ) ); ?>> Enable<br>
-                        <input type="radio" name="Enable_Facets" value="0" <?php checked( '0', get_option( 'Enable_Facets' ) ); ?>> Disable
+                        <input type="radio" name="Enable_Facets" value="1" <?php checked('1', get_option('Enable_Facets')); ?>> Enable<br>
+                        <input type="radio" name="Enable_Facets" value="0" <?php checked('0', get_option('Enable_Facets')); ?>> Disable
                     </td>
                 </tr>
 
@@ -107,22 +151,6 @@ function prosperent_settings_page()
                 <tr valign="top">
                     <th scope="row"><b>Pagination Limit</b> (Results to display on each page)</th>
                     <td><input type="text" name="Pagination_Limit" value="<?php echo get_option('Pagination_Limit'); ?>" /></td>
-                </tr>
-
-                <tr valign="top">
-                    <th scope="row"><b>Logo Image</b> (Display the original sized Prosperent Logo. Size is 167px x 50px.)</th>
-                    <td>
-                        <input type="radio" name="Logo_Image" value="1" <?php checked( '1', get_option( 'Logo_Image' ) ); ?>> Enable<br>
-                        <input type="radio" name="Logo_Image" value="0" <?php checked( '0', get_option( 'Logo_Image' ) ); ?>> Disable
-                    </td>
-                </tr>
-
-                <tr valign="top">
-                    <th scope="row"><b>Logo Image- Small</b> (Display the smaller Prosperent Logo. Size is 100px x 30px.)</th>
-                    <td>
-                        <input type="radio" name="Logo_imageSmall" value="1" <?php checked( '1', get_option( 'Logo_imageSmall' ) ); ?>> Enable<br>
-                        <input type="radio" name="Logo_imageSmall" value="0" <?php checked( '0', get_option( 'Logo_imageSmall' ) ); ?>> Disable
-                    </td>
                 </tr>
 
                 <tr valign="top">
@@ -158,6 +186,32 @@ function prosperent_settings_page()
                 <tr valign="top">
                     <th scope="row"><b>Starting Query</b> (When first visited, the site will use this query if one has not been given by the user. If no starting query is set, it shows the no results page.)</th>
                     <td><input type="text" name="Starting_Query" value="<?php echo get_option('Starting_Query'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Base URL</b> (If you have a different site from '<b>your-blog.com/product</b>' that you want the search query to go to.)</th>
+                    <td><input type="text" name="Base_URL" value="<?php echo get_option('Base_URL'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Additional CSS</b> (Additional CSS for the shortcode search bar.)</th>
+                    <td><input type="text" name="Additional_CSS" value="<?php echo get_option('Additional_CSS'); ?>" /></td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Logo Image</b> (<b>Only for search bar in header.</b> Display the original sized Prosperent Logo. Size is 167px x 50px.)</th>
+                    <td>
+                        <input type="radio" name="Logo_Image" value="1" <?php checked('1', get_option('Logo_Image')); ?>> Enable<br>
+                        <input type="radio" name="Logo_Image" value="0" <?php checked('0', get_option('Logo_Image')); ?>> Disable
+                    </td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row"><b>Logo Image- Small</b> (<b>Only for search bar in header.</b> Display the smaller Prosperent Logo. Size is 100px x 30px.)</th>
+                    <td>
+                        <input type="radio" name="Logo_imageSmall" value="1" <?php checked('1', get_option('Logo_imageSmall')); ?>> Enable<br>
+                        <input type="radio" name="Logo_imageSmall" value="0" <?php checked('0', get_option('Logo_imageSmall')); ?>> Disable
+                    </td>
                 </tr>
             </table>
 
@@ -248,7 +302,7 @@ function prosperent_store_remove()
 function Prospere_Search()
 {
     ?>
-    <form id="search" method="GET" action="<?php echo get_option('Parent_Directory') . '/product'; ?>">
+    <form id="search" method="GET" action="<?php echo !get_option('Base_URL') ? get_option('Parent_Directory') . '/product' : get_option('Base_URL'); ?>">
         <table>
             <tr>
                 <?php
@@ -267,7 +321,7 @@ function Prospere_Search()
                 if (get_option('Logo_imageSmall'))
                 {
                     ?>
-                    <td class="image"><a href="http://prosperent.com" title="Prosperent"> <img src="<?php echo plugins_url('/img//logo_smaller.png', __FILE__); ?>"/> </a></td>
+                    <td class="image"><a href="http://prosperent.com" title="Prosperent"> <img src="<?php echo plugins_url('/img/logo_smaller.png', __FILE__); ?>"/> </a></td>
                     <style type=text/css>
                         #branding img {
                             margin-bottom:6px;
@@ -280,77 +334,41 @@ function Prospere_Search()
                 <td>
                     <table id="search-input" cellspacing="0">
                         <tr>
-                            <td class="srchBoxCont" nowrap><input class="srch_box" type="text" maxlength="2048" name="q" size="41" title="Search Products"></td>
-
-                            <!-- script that produces the faded 'Search Products...' in the input box and once the box is clicked on it disappears -->
-                            <script type="text/javascript">
-                                var form = document.getElementById('search');
-                                setDefaultText(form.elements.q, 'Search Products...');
-
-                                function setDefaultText(field, text)
-                                {
-                                    text = text || field.defaultText;
-                                    if (field.value === '')
-                                    {
-                                        field.value = text;
-                                        field.defaultText = text;
-                                        addClass(field, 'faded');
-                                    }
-
-                                    field.onfocus = function ()
-                                    {
-                                        removeDefaultText(this);
-                                    };
-
-                                    field.onblur = function ()
-                                    {
-                                        setDefaultText(this);
-                                    };
-                                }
-
-                                function removeDefaultText(field)
-                                {
-                                    if (field.value === field.defaultText)
-                                    {
-                                        field.value = '';
-                                        removeClass(field, 'faded');
-                                    }
-                                }
-
-                                function hasDefaultText(field)
-                                {
-                                    return (field.value === field.defaultText);
-                                }
-
-                                function hasClass(ele,cls)
-                                {
-                                    return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-                                }
-
-                                function addClass(ele,cls)
-                                {
-                                    if (!this.hasClass(ele,cls)) ele.className += " "+cls;
-                                }
-
-                                function removeClass(ele,cls)
-                                {
-                                    if (hasClass(ele,cls))
-                                    {
-                                        var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
-                                        ele.className=ele.className.replace(reg,' ');
-                                    }
-                                }
-                            </script>
+                            <td class="srchBoxCont" nowrap>
+                                <input class="srch_box" type="text" name="q" placeholder="Search Products...">
+                            </td>
                             <td nowrap style="vertical-align:middle;">
-                                <div class="srchButtonBorder">
-                                    <input class="srch_button" type="submit" value="Search" cursor:pointer id="srchButton">
-                                </div>
+                                <input class="submit" type="submit" id="searchsubmit">
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
+    </form>
+    <?php
+}
+
+function Prospere_Search_Short()
+{
+    ?>
+    <div style="width:200px;<?php echo get_option('Additional_CSS'); ?>">
+        <form id="searchform" method="GET" action="<?php echo !get_option('Base_URL') ? get_option('Parent_Directory') . '/product' : get_option('Base_URL'); ?>">
+            <label for="s" class="assistive-text">Search</label>
+            <input class="field" type="text" name="q" id="s" placeholder="Search Products"></td>
+            <input class="submit" type="submit" id="searchsubmit">
+        </form>
+    </div>
+    <?php
+}
+
+function Prospere_Search_Widget()
+{
+    ?>
+    <form id="searchform" method="GET" action="<?php echo !get_option('Base_URL') ?  (!get_option('Parent_Directory') ? '/product' : '/' . get_option('Parent_Directory') . '/product') : '/' . get_option('Base_URL'); ?>">
+        <label for="s" class="assistive-text">Search</label>
+        <input class="field" type="text" name="q" id="s" placeholder="Search Products"></td>
+        <input class="submit" type="submit" id="searchsubmit">
     </form>
     <?php
 }

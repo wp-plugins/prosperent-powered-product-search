@@ -22,11 +22,10 @@
     font-family: Arial, sans-serif;
     font-size: 120%;
     border: 1px solid #ccc;
-    width: 250px;
-    height: 22px;
+    width: 200px;
+    height: 21px;
     float: left;
-    border-top-left-radius: 0.3em;
-    border-bottom-left-radius: 0.3em;
+    border-radius: 0.3em;
     margin-bottom:6px;
 }
 
@@ -39,18 +38,6 @@
     margin-bottom:6px;
 }
 
-.srchButtonBorder input {
-    border: medium none;
-    font-size: 12px;
-    height: 27px;
-    padding: 3px;
-    text-align: center;
-}
-
-.faded {
-    color:#aaa;
-}
-
 .entry-content img, .comment-content img, .widget img {
     max-width:170%
 }
@@ -58,6 +45,7 @@
 .entry-content table, .comment-content table {
     margin:0;
 }
+
 
 /*  Products   */
 .noResults {
