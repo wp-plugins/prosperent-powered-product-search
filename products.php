@@ -162,7 +162,14 @@ else
         }
 
         ?>
-
+        <div style="width:200px; padding-bottom:10px; float:right;">
+            <form id="searchform" method="GET" action="">
+                <label for="s" class="assistive-text">Search</label>
+                <input class="field" type="text" name="q" id="s" placeholder="Search Products"></td>
+                <input class="submit" type="submit" id="searchsubmit">
+            </form>
+        </div>
+        <br>
         <table id="facets">
             <tr>
                 <td class="brands">
@@ -292,6 +299,7 @@ else
     }
 
     echo '<div class="totalFound">' . $totalFound . ' results for <b>' . strtolower($query) . '</b></div>';
+
     ?>
 
      <form name="priceSorter" method="GET" action="<?php echo $url; ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
