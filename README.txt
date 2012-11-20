@@ -95,7 +95,7 @@ We have a comprehensive reporting system in place that allows you to see which p
 
 We take a 30% commission and pay you the other 70%. If you are a larger publisher this split changes to 80/20.
 
-= What are the comissions paid and terms? =
+= What are the commissions paid and terms? =
 
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
 
