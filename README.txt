@@ -101,6 +101,14 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 2.2 =
+
+* You now have access to the Coupon API and the Celebrity API
+* When a Filter is clicked, it will put the Merchant/Brand/Celebrity picture next to the filter name
+* Pagination works again
+* Pagination will clear if a new query, sort method, or filter is used.
+
+
 = 2.0 =
 Another big Update
 
