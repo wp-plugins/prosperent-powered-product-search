@@ -49,13 +49,16 @@
 
 /*  Products   */
 .noResults {
-    padding-top:25px;
+
     font-size:2.4em;
 }
 
 .noResults-secondary {
-    min-height:400px;
     font-size:14px;
+}
+
+.noResults-padding{
+    min-height:300px
 }
 
 #facets {
@@ -64,6 +67,7 @@
     width:100%;
     border-top: 1px solid #DDDDDD;
     border-bottom:1px solid #DDDDDD;
+
 }
 
 #facets .brands {
@@ -113,12 +117,12 @@
 }
 
 .table-seperator {
-    padding-bottom:10px;
+    padding-bottom:4px;
 }
 
 .totalFound {
     float:left;
-    padding: 3px 0 0 15px;
+    padding: 0 0 0 15px;
 }
 
 #productList {
@@ -180,6 +184,73 @@
     color:#cc6600;
 }
 
+/* Coupons */
+#couponList {
+    width:100%;
+}
+
+#couponList .couponBlock {
+    border-bottom:1px solid #CCC;
+    min-height:90px;
+}
+
+#couponList .couponImage {
+    width:13%;
+    vertical-align:middle;
+}
+
+#couponList .couponContent {
+    width:87%;
+    padding-left:40px;
+    vertical-align:top;
+}
+
+.couponContent .couponTitle {
+    display:block;
+    font-size:0.95em;
+}
+
+.couponContent .couponDescription {
+    display:block;
+    font-size:0.85em;
+}
+
+#couponList .couponVisit {
+    display:inline;
+    float:right;
+    padding:4px 0 0 0;
+    height:45px;
+}
+
+.couponContent .couponExpire {
+    display:block;
+}
+
+.couponContent .couponCode {
+    color:#333;
+    display:inline;
+    padding:5px 0 0 0;
+    font-weight:bold;
+    font-size: 16px;
+}
+
+span.code_cc{
+    color:#333;
+    border:2px dashed #3079ed;
+    padding: 2px 3px;
+    background:none repeat scroll 0 0 #d7e3f5;
+    font-weight:bold;
+    font-size:16px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius:8px;
+}
+
+.couponExpire span {
+    font-size:13px;
+    color:red;
+    font-weight:bold;
+}
 
 /* Pagination */
 .pagination {
