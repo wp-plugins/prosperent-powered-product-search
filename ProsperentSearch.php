@@ -344,7 +344,7 @@ function Prospere_Search()
                                 <input class="srch_box" type="text" name="q" placeholder="Search Products...">
                             </td>
                             <td nowrap style="vertical-align:middle;">
-                                <input class="submit" type="submit" id="searchsubmit">
+                                <input class="submit" type="submit" id="searchsubmit" value="Search">
                             </td>
                         </tr>
                     </table>
