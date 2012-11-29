@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 2.2
+Version: 2.3
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -344,7 +344,7 @@ function Prospere_Search()
                                 <input class="srch_box" type="text" name="q" placeholder="Search Products...">
                             </td>
                             <td nowrap style="vertical-align:middle;">
-                                <input class="submit" type="submit" id="searchsubmit">
+                                <input class="submit" type="submit" id="searchsubmit" value="Search">
                             </td>
                         </tr>
                     </table>

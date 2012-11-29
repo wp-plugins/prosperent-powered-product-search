@@ -49,9 +49,6 @@ function prosper_pagination($pages = '', $range)
         if(e.style.display == 'block')
         e.style.display = 'none';
     }
-
-    var w=document.getElementById("content").offsetWidth;
-    console.log(w);
     //-->
 </script>
 
