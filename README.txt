@@ -101,6 +101,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 2.4 =
+
+* Works for PHP 5.2.x again, I was using some 5.3 methods in the last update that broke some people's shops (May want to update to your PHP version if you are still running 5.2 if you can)
+
 = 2.2 =
 
 * You now have access to the Coupon API and the Celebrity API
