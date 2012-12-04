@@ -104,6 +104,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 = 2.5 =
 
+* Responsive design CSS fix
+
+= 2.5 =
+
 * Responsive design, first implementation. Let me know how this works for you. I'll make adjustments if needed.
 
 = 2.4 =

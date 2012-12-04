@@ -146,6 +146,7 @@ td {
     display:inline-block;
     padding:4px 0;
     height:auto;
+    width:100%;
 }
 
 #productList .productImage {
