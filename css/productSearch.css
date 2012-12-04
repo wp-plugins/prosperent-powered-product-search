@@ -61,13 +61,16 @@
     min-height:300px
 }
 
+td {
+    border:none;
+}
+
 #facets {
     font-size:11px;
     background:#F0F4F5;
     width:100%;
     border-top: 1px solid #DDDDDD;
     border-bottom:1px solid #DDDDDD;
-
 }
 
 #facets .brands {
@@ -129,29 +132,40 @@
     width:100%;
 }
 
+#productList .productBlock0{
+    width:100%;
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;
+    display:inline-block;
+    padding:4px 0;
+    height:auto;
+}
+
 #productList .productBlock {
     border-bottom:1px solid #CCC;
-    height:140px;
+    display:inline-block;
+    padding:4px 0;
+    height:auto;
 }
 
 #productList .productImage {
-    width:13%;
+    width:135px;
+    float:left;
 }
 
 #productList .productContent {
-    width:70%;
-    padding-left:35px;
-    vertical-align:top;
+    width:56%;
+    float:left;
 }
 
 .productContent .productTitle {
     padding-bottom:5px;
-    font-size:16px;
+    font-size:14px;
 }
 
 .productContent .productDescription {
     padding-bottom:5px;
-    font-size:14px;
+    font-size:12px;
 }
 
 .productContent .productBrandMerchant {
@@ -159,9 +173,9 @@
 }
 
 #productList .productEnd {
-    width:17%;
-    font-size:18px;
-    vertical-align:top;
+    width:120px;
+    font-size:16px;
+    float:right;
 }
 
 .productEnd .productPriceNoSale {
@@ -184,51 +198,72 @@
     color:#cc6600;
 }
 
+#facets .filterImg {
+    margin-top:-64px;
+    padding-left:150px;
+}
+
+.productBrandMerchant  .brandIn {
+    padding-right:6px;
+    display:inline-block;
+}
+
+.productBrandMerchant .brandIn {
+    display:inline-block;
+}
+
 /* Coupons */
 #couponList {
     width:100%;
 }
 
+#couponList .couponBlock0{
+    width:100%;
+    border-top:1px solid #CCC;
+    border-bottom:1px solid #CCC;
+    display:inline-block;
+    padding:4px 0;
+    height:auto;
+}
+
 #couponList .couponBlock {
     border-bottom:1px solid #CCC;
-    min-height:90px;
+    display:inline-block;
+    padding:4px 0;
+    height:auto;
+    width:100%;
 }
 
 #couponList .couponImage {
-    width:13%;
-    vertical-align:middle;
+    width:120px;
+    float:left;
 }
 
 #couponList .couponContent {
-    width:87%;
-    padding-left:40px;
-    vertical-align:top;
+    width:78%;
+    float:right;
 }
 
 .couponContent .couponTitle {
-    display:block;
-    font-size:0.95em;
+    padding-bottom:5px;
+    font-size:14px;
 }
 
 .couponContent .couponDescription {
-    display:block;
-    font-size:0.85em;
+    padding-bottom:5px;
+    font-size:12px;
 }
 
 #couponList .couponVisit {
-    display:inline;
-    float:right;
-    padding:4px 0 0 0;
-    height:45px;
+    display:inline-block;
+    float:left;
+    padding:8px 0 2px 0;
+    width:120px;
 }
 
-.couponContent .couponExpire {
-    display:block;
-}
 
 .couponContent .couponCode {
     color:#333;
-    display:inline;
     padding:5px 0 0 0;
     font-weight:bold;
     font-size: 16px;
@@ -246,8 +281,8 @@ span.code_cc{
     border-radius:8px;
 }
 
-.couponExpire span {
-    font-size:13px;
+.couponExpire {
+    font-size:14px;
     color:red;
     font-weight:bold;
 }
@@ -281,4 +316,187 @@ background: #3279BB;
 padding:6px 9px 5px 9px;
 background: #3279BB;
 color:#fff;
+}
+
+@media all and (max-width:400px) {
+    #facets .brands {
+        width:100%;
+        padding:0;
+        border-top:0;
+    }
+
+    #productList .productBlock0{
+        width:100%;
+        border-top:1px solid #CCC;
+        border-bottom:1px solid #CCC;
+        display:inline-block;
+    }
+
+    #productList .productBlock {
+        border-bottom:1px solid #CCC;
+        display:inline-block;
+        width:100%;
+    }
+
+    #facets .merchants {
+        width:100%;
+        padding:0;
+        border-top:0;
+    }
+
+    #facets .filterImg {
+        display:none;
+    }
+
+    #productList .productImage {
+        width:135px;
+        float:left;
+    }
+
+    #productList .productEnd {
+        width:100%;
+        font-size:16px;
+        float:right;
+    }
+
+    #productList .productContent {
+        width:100%;
+        float:right;
+        display:block;
+    }
+
+    .priceSorter {
+        padding-left:10px;
+        padding-right:0;
+    }
+
+    .searchForm  .field{
+        width:60% !important;
+    }
+
+    .productEnd .productPrice {
+        display:none;
+    }
+
+    .productPrice span {
+        text-decoration: line-through;
+    }
+
+    .productEnd .visitImg {
+        float:right;
+        height:40px;
+    }
+
+    .productEnd .productPriceSale {
+        padding-bottom:0;
+        padding-top:6px;
+        display:inline-block;
+    }
+
+    .productContent .productDescription {
+        padding-bottom:2px;
+        font-size:12px;
+    }
+
+    #couponList .couponContent {
+        width:100%;
+        float:right;
+    }
+}
+
+@media all and (max-width:700px) and (min-width:420px) {
+    #facets .brands {
+        width:100%;
+        padding:0;
+        border-top:0;
+    }
+
+    #facets .merchants {
+        width:100%;
+        padding:0;
+        border-top:0;
+    }
+
+    #productList .productBlock0{
+        width:100%;
+        border-top:1px solid #CCC;
+        border-bottom:1px solid #CCC;
+        display:inline-block;
+    }
+
+    #facets .filterImg {
+        margin-top:-60px;
+        padding-left:140px;
+    }
+
+    .productContent .productDescription {
+        padding-bottom:2px;
+        font-size:12px;
+    }
+
+    #productList .productBlock {
+        border-bottom:1px solid #CCC;
+        display:inline-block;
+        width:100%;
+    }
+
+    #productList .productImage {
+        width:135px;
+        float:left;
+    }
+
+    #productList .productEnd {
+        width:120px;
+        font-size:14px;
+        float:left;
+        padding-bottom:4px;
+    }
+
+    #productList .productContent {
+        width:60%;
+        float:right;
+    }
+
+    .productEnd .productPriceNoSale {
+        padding-bottom:5px;
+    }
+
+    .productEnd .productPrice {
+        float:left;
+        padding-bottom:3px;
+    }
+
+    .productPrice span {
+        text-decoration: line-through;
+    }
+
+    .productEnd .productPriceSale {
+        float:right;
+        padding:0;
+    }
+
+    #couponList .couponContent {
+        width:64%;
+        float:right;
+    }
+}
+
+@media all and (max-width:700px) and (min-width:580px) {
+    #productList .productContent {
+        width:68%;
+        padding-bottom:36px;
+        float:right;
+    }
+
+    #couponList .couponContent {
+        width:72%;
+        float:right;
+    }
+}
+
+@media all and (max-width:800px) and (min-width:800px) {
+    #productList .productContent {
+        width:58%;
+        float:left;
+    }
 }

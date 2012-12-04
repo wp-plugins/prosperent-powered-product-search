@@ -9,14 +9,14 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds a product search box widget to your blog, which viewers can use to search and make purchases and you will earn a commission.
 
-Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
-The search box is now inside its own widget, and has shortcode available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
+Now you can place the short code [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
+The search box is now inside its own widget, and has short code available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
 
 == Description ==
 
 *Prosperent Product Search*
 
-This plugin will help make/increase earnings from your blog. It will add a product search box to your wordpress site, which viewers can use to search for products.
+This plug in will help make/increase earnings from your blog. It will add a product search box to your WordPress site, which viewers can use to search for products.
 When they click the product through your site they will be redirected to the Merchant's site. If they make a purchase you will earn a commission from the sale.
 
 *Why Prosperent Product Search?*
@@ -34,7 +34,7 @@ We have an ever growing community, which is always willing to answer questions a
     Name it whatever you'd like and you'll see that its created a key for you.
 2.	Save that key somewhere as you'll be needing it later.
 3.	Upload the `prosperent-powered-product-search` folder to the `/wp-content/plugins/` directory.
-4.	Activate the plugin through the 'Plugins' menu in WordPress.
+4.	Activate the plug in through the 'Plugins' menu in WordPress.
 5.  Under 'Appearance', go to 'Widgets' and add the 'Prosperent Store' widget where you'd like it. You can give it a title if you want as well.
 6.	Go to the `Prosperent Settings` under Settings and edit those that you'd like, don't forget to add your API key here.
 
@@ -47,14 +47,14 @@ We have an ever growing community, which is always willing to answer questions a
         * Negative Merchant and Brand Facets. Merchants and Brands to discard from results.
         * Starting Query. When first visited, the site will use this query if one has not been given by the user. If no starting query is set, it shows the no results page.
         * Base URL. If you have a different url from 'your-blog.com/product' that you want the search query to be posted to (For example, if you created a 'Shop' page, with the url your-blog.com/shop, change this to shop).
-        * Additional CSS. Additional CSS for the shortcode search bar if used.
+        * Additional CSS. Additional CSS for the short code search bar if used.
         * Logo Image and Logo Image-Small, these are the logos associated with search input box. Only set one to TRUE. (Logo Image is by default set to TRUE.)
 
-7.	The plugin automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
+7.	The plug in automatically creates a `New Page` called product. Go into that page and change the title to whatever you would like to be visible. Also change the template to your liking. (On the twenty-eleven theme I used
     the `showcase` template.)
-    Also, now that the results is shortcoded, you can add [prosper_store][/prosper_store] to any page.
+    Also, now that the results is short coded, you can add [prosper_store][/prosper_store] to any page.
     Reminder, if you use a different page from '/products' to display search results change the 'Base_URL' Setting.
-8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
+8.	Congratulations, you have a fully functioning product search engine embedded on your WordPress page.
 9.	Log in to Prosperent.com every so often to check your stats.
 
 
@@ -69,7 +69,7 @@ Additionally:
 
 = What is Prosperent? =
 
-Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean datafeeds, and provide a variety of publisher tools to get products on your site quickly and easily.
+Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean data feeds, and provide a variety of publisher tools to get products on your site quickly and easily.
 
 = How many merchants does Prosperent work with? =
 
@@ -101,6 +101,15 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 2.5 =
+
+* Responsive design, first implementation. Let me know how this works for you. I'll make adjustments if needed.
+
+
+= 2.4 =
+
+* Works for PHP 5.2.x again, I was using some 5.3 methods in the last update that broke some people's shops (May want to update to your PHP version if you are still running 5.2 if you can)
+
 = 2.2 =
 
 * You now have access to the Coupon API and the Celebrity API
@@ -113,16 +122,16 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 Another big Update
 
 * The main search bar is now a widget that you can place in your sidebars or footer areas.
-* The search bar has also been added as a shortcode for those who want to place it somewhere else. [prosper_search][/prosper_search]
+* The search bar has also been added as a short code for those who want to place it somewhere else. [prosper_search][/prosper_search]
 * Added a search bar to the search results page for easy access and searching.
 * Changed the look of the search bar.
 * Added additional settings, and placed the 'Prosperent Settings' under the settings menu now.
 
 = 1.9 =
-DEACTIVATE and REACTIVATE this plugin to make the new shortcode changes take effect.
+DEACTIVATE and REACTIVATE this plug in to make the new short code changes take effect.
 
 * Fixed collisions that the pagination class was having with other classes in some instances.
-* Changed the shortcode to be [prosper_store][/prosper_store] (Placing that on any other pages will give you another store.
+* Changed the short code to be [prosper_store][/prosper_store] (Placing that on any other pages will give you another store.
 * Updated pagination, now includes First, Last, Previous and Next buttons.
 
 = 1.8 =
@@ -156,7 +165,7 @@ DEACTIVATE and REACTIVATE this plugin to make the new shortcode changes take eff
 
 If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
 
-Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
+Also if you are getting an include error, on your `product` page created by the plug in you should see, `[php] include(plug in_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
 
 You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 

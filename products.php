@@ -60,6 +60,13 @@ $pageNumber = preg_replace('/(.*)(\/page\/)(\d+)(\/.*)/i', '$3', $_SERVER['REQUE
 $celeb = $_GET['celeb'];
 $type = $_GET['type'];
 
+$imageServers = array(
+        'http://img1.prosperent.com/images/',
+        'http://img2.prosperent.com/images/',
+        'http://img3.prosperent.com/images/',
+        'http://img4.prosperent.com/images/'
+    );
+
 if (!$_GET['q'] && get_option('Starting_Query'))
 {
     if (preg_match('/\?/' , $_SERVER['REQUEST_URI']))
@@ -110,15 +117,15 @@ if ('prod' == $type || empty($type))
     */
     require_once('Prosperent_Api.php');
     $prosperentApi = Prosperent_Api::endpoint(Prosperent_Api::ENDPOINT_PRODUCT, array(
-    'api_key'        => get_option('Api_Key'),
-    'query'          => $query,
-    'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
-    'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
-    'sortBy'	     => $sort,
-    'groupBy'	     => 'productId',
-    'enableFacets'   => get_option('Enable_Facets'),
-    'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
-    'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
+        'api_key'        => get_option('Api_Key'),
+        'query'          => $query,
+        'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
+        'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
+        'sortBy'	     => $sort,
+        'groupBy'	     => 'productId',
+        'enableFacets'   => get_option('Enable_Facets'),
+        'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
+        'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
     ));
 
     /*
@@ -141,12 +148,12 @@ if ('prod' == $type || empty($type))
     echo '</div>';
     ?>
 
-    <div style="width:200px;  float:right; padding-bottom:10px;">
-        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>">
+    <div style="float:right; padding-bottom:10px;">
+        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>" style="margin:0;">
         <input type="hidden" name="filterBrand" value="<?php echo $filterBrand;?>">
         <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
         <input type="hidden" name="type" value="<?php echo !$type ? 'prod' : $type; ?>">
-        <input class="field" type="text" name="q" id="s" placeholder="Search Products">
+        <input class="field" type="text" name="q" id="s" placeholder="Search Products" style="width:64%;">
         <input class="submit" type="submit" id="searchsubmit" value="Search">
         </form>
     </div>
@@ -220,7 +227,7 @@ if ('prod' == $type || empty($type))
                     {
                         echo $filterBrand;
                         echo '</br><a href=' . str_replace(array('&filterBrand=' . rawurlencode($filterBrand), '?filterBrand=' . rawurlencode($filterBrand)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img2.prosperent.com/images/brandlogos/120x60/' . rawurlencode($filterBrand) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'brandlogos/120x60/' . rawurlencode($filterBrand) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -259,7 +266,7 @@ if ('prod' == $type || empty($type))
                     {
                         echo $filterMerchant;
                         echo '</br><a href=' . str_replace(array('&filterMerchant=' . rawurlencode($filterMerchant), '?filterMerchant=' . rawurlencode($filterMerchant)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img2.prosperent.com/images/logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -332,11 +339,11 @@ if ('prod' == $type || empty($type))
     {
         echo '<div class="noResults">No Results</div>';
         ?>
-        <div style="width:200px; padding-bottom:10px;">
-            <form id="searchform" method="GET" action="">
-                <input type="hidden" name="filterBrand" value="<?php echo $filterBrand;?>">
-                <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
-                <input class="field" type="text" name="q" id="s" placeholder="Search Products">
+        <div style="padding:10px 0;">
+            <form id="searchform" method="GET" action="" style="margin:0;">
+                <input type="hidden" name="filterBrand" value="<?php echo $filterBrand; ?>">
+                <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant; ?>">
+                <input class="field" type="text" name="q" id="s" placeholder="Search Products" style="width:155px;">
                 <input class="submit" type="submit" id="searchsubmit" value="Search">
             </form>
         </div>
@@ -349,7 +356,7 @@ if ('prod' == $type || empty($type))
         echo '<div class="totalFound">' . $totalFound . ' results for <b>' . strtolower($query) . '</b></div>';
         ?>
 
-        <form name="priceSorter" method="GET" action="<?php echo $submitUrl; ?>" style="float:right; padding-right:13px; padding-bottom:4px;">
+        <form name="priceSorter" method="GET" action="<?php echo $submitUrl; ?>" style="margin:0; float:right; padding:4px 13px 4px 0;">
             <input type="hidden" name="q" value="<?php echo $query;?>">
             <input type="hidden" name="filterBrand" value="<?php echo $filterBrand;?>">
             <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
@@ -388,27 +395,27 @@ if ('prod' == $type || empty($type))
         $results = array_slice($results, $limitLower, $limit, true);
         ?>
 
-        <table id="productList">
+        <div id="productList">
             <?php
             // Loop to return Products and corresponding information
             foreach ($results as $i => $record)
             {
                 $record['image_url'] = preg_replace('/\/images\/250x250\//', '/images/125x125/', $record['image_url'])
                 ?>
-                <tr class="productBlock">
-                    <td class="productImage">
+                <div class="<?php echo $i > 0 ? 'productBlock' : 'productBlock0'; ?>">
+                    <div class="productImage">
                         <a href="<?php echo $record['affiliate_url']; ?>"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
-                    </td>
-                    <td class="productContent">
+                    </div>
+                    <div class="productContent">
                         <div class="productTitle"><a href="<?php echo $record['affiliate_url']; ?>"><span><?php echo $record['keyword']?></span></a></div>
                         <div class="productDescription"><?php
                             if (strlen($record['description']) > 200)
                             {
-                                echo substr($record['description'], 0, 200) . '...' . '</div>';
+                                echo substr($record['description'], 0, 200) . '...';
                             }
                             else
                             {
-                                echo $record['description'] . '</div>';
+                                echo $record['description'];
                             }
                             ?>
                         </div>
@@ -416,16 +423,16 @@ if ('prod' == $type || empty($type))
                             <?php
                             if($record['brand'])
                             {
-                                echo '<u>Brand</u>: <a href="' . $url . '&filterBrand=' . rawurlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
+                                echo '<span class="brandIn"><u>Brand</u>: <a href="' . $url . '&filterBrand=' . rawurlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a></span>';
                             }
                             if($record['merchant'])
                             {
-                                echo '<u>Merchant</u>: <a href="' . $url . '&filterMerchant=' . rawurlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
+                                echo '<span class="merchantIn"><u>Merchant</u>: <a href="' . $url . '&filterMerchant=' . rawurlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a></span>';
                             }
                             ?>
                         </div>
-                    </td>
-                    <td class="productEnd">
+                    </div>
+                    <div class="productEnd">
                         <?php
                         if(empty($record['price_sale']) || $record['price'] <= $record['price_sale'])
                         {
@@ -439,17 +446,17 @@ if ('prod' == $type || empty($type))
                         {
                             ?>
                             <div class="productPrice"><span>$<?php echo $record['price']?></span></div>
-                            <div class="productPriceSale"style="padding-bottom:15px;"><span>$<span><?php echo $record['price_sale']?></span></span></div>
+                            <div class="productPriceSale"><span>$<?php echo $record['price_sale']?></span></div>
                             <?php
                         }
                         ?>
-                        <a href="<?php echo $record['affiliate_url']; ?>"><img src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
-                    </td>
-                </tr>
+                        <a href="<?php echo $record['affiliate_url']; ?>"><img class="visitImg" src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
+                    </div>
+                </div>
                 <?php
             }
             ?>
-        </table>
+        </div>
         <?php
     }
 }
@@ -464,7 +471,7 @@ elseif ('coup' == $type)
         'api_key'        => get_option('Api_Key'),
         'query'          => $query,
         'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
-        'limit'          => 25,//!get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
+        'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
         'sortBy'	     => $sort,
         'enableFacets'   => get_option('Enable_Facets'),
         'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
@@ -489,16 +496,15 @@ elseif ('coup' == $type)
     echo '</div>';
     ?>
 
-    <div style="width:200px; padding-bottom:10px; float:right;">
-        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>">
+    <div style="padding-bottom:10px; float:right;">
+        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>" style="margin:0;">
             <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
             <input type="hidden" name="type" value="<?php echo $type; ?>">
-            <input class="field" type="text" name="q" id="s" placeholder="Search Coupons">
+            <input class="field" type="text" name="q" id="s" placeholder="Search Coupons" style="width:64%;">
             <input class="submit" type="submit" value="Search" id="searchsubmit">
         </form>
     </div>
 
-    <br>
     <?php
     if ($prosperentApi->get_enableFacets() == 1)
     {
@@ -538,7 +544,7 @@ elseif ('coup' == $type)
                     {
                         echo $filterMerchant;
                         echo '</br><a href=' . str_replace(array('&filterMerchant=' . rawurlencode($filterMerchant), '?filterMerchant=' . rawurlencode($filterMerchant)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img2.prosperent.com/images/logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -556,11 +562,11 @@ elseif ('coup' == $type)
         echo '<div class="noResults">No Results</div>';
 
         ?>
-        <div style="width:200px; padding-bottom:10px;">
-            <form id="searchform" method="GET" action="">
+        <div style="padding:10px 0;">
+            <form id="searchform" method="GET" action="" style="margin:0;">
                 <input type="hidden" name="filterMerchant" value="<?php echo $filterMerchant;?>">
                 <input type="hidden" name="type" value="<?php echo $type; ?>">
-                <input class="field" type="text" name="q" id="s" placeholder="Search Coupons">
+                <input class="field" type="text" name="q" id="s" placeholder="Search Coupons" style="width:155px;">
                 <input class="submit" type="submit" value="Search" id="searchsubmit">
             </form>
         </div>
@@ -570,7 +576,7 @@ elseif ('coup' == $type)
     }
     else
     {
-        echo '<div class="totalFound" style="padding-bottom:10px;">' . $totalFound . ' coupons for <b>' . strtolower($query) . '</b></div>';
+        echo '<div class="totalFound">' . $totalFound . ' coupons for <b>' . strtolower($query) . '</b></div>';
 
         // Gets the count of results for Pagination
         $productCount = count($results);
@@ -595,21 +601,25 @@ elseif ('coup' == $type)
         $results = array_slice($results, $limitLower, $limit, true);
         ?>
 
-        <table id="couponList">
+        <div id="couponList">
             <?php
             // Loop to return coupons and corresponding information
             foreach ($results as $i => $record)
             {
-                $record['image_url'] = preg_replace('/\/images\/250x250\//', '/images/125x125/', $record['image_url'])
                 ?>
-                <tr class="couponBlock">
-                    <td class="couponImage">
-                        <a href="<?php echo $record['affiliate_url']; ?>"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
-                    </td>
-                    <td class="couponContent">
-                        <div class="couponTitle"><a href="<?php echo $record['affiliate_url']; ?>"><span>
+                <div class="<?php echo $i > 0 ? 'couponBlock' : 'couponBlock0'; ?>">
+                    <div class="couponImage">
+                        <?php
+                        echo '<a href="' . $record['affiliate_url'] . '"><img src="' . $record['image_url'] . '"></a>';
+                        ?>
+                    </div>
+                    <div class="couponContent">
+                        <div class="couponTitle">
                             <?php
-                            echo $record['keyword'] . '</span></a></div>';
+                            echo '<a href="' . $record['affiliate_url'] . '">' . $record['keyword'] . '</a>';
+                            ?>
+                        </div>
+                        <?php
                         if(!empty($record['expiration_date']))
                         {
                             $expires = new DateTime($record['expiration_date']);
@@ -618,39 +628,34 @@ elseif ('coup' == $type)
 
                             if ($interval->days <= 7 && $interval->days > 0)
                             {
-                                ?>
-                                <div class="couponExpire"><span><?php echo 'Expires in ' . $interval->days . ' days!'; ?></span></div>
-                                <?php
+                                echo '<div class="couponExpire">Expires in ' . $interval->days . ' days!</div>';
                             }
                             else
                             {
-                                ?>
-                                <div class="couponExpire"><span><?php echo 'Expires Soon!'; ?></span></div>
-                                <?php
+                                echo '<div class="couponExpire">Expires Soon!</div>';
                             }
                         }
                         ?>
-                        <div class="couponDescription"><?php
-                            echo $record['description'] . '</div>';
-
-                            if ($record['coupon_code'])
-                            {
-                                ?>
-                                <div class="couponCode">Coupon Code: <span class="code_cc"><?php echo $record['coupon_code']; ?></span></div>
-                                <?php
-                            }
+                        <div class="couponDescription">
+                            <?php
+                            echo $record['description'];
                             ?>
-                            <div class="couponVisit">
-                                <a href="<?php echo $record['affiliate_url']; ?>"><img src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
-                            </div>
                         </div>
-                    </td>
-
-                </tr>
+                        <?php
+                        if ($record['coupon_code'])
+                        {
+                            echo '<div class="couponCode">Coupon Code: <span class="code_cc">' . $record['coupon_code'] . '</span></div>';
+                        }
+                        ?>
+                    </div>
+                    <div class="couponVisit">
+                        <a href="<?php echo $record['affiliate_url']; ?>"><img src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
+                    </div>
+                </div>
                 <?php
             }
             ?>
-        </table>
+        </div>
         <?php
     }
 }
@@ -697,10 +702,10 @@ elseif ('cele' == $type)
     echo '</div>';
     ?>
 
-    <div style="width:200px; padding-bottom:10px; float:right;">
-        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>">
+    <div style="padding:10px 0; float:right;">
+        <form id="searchform" method="GET" action="<?php echo $submitUrl; ?>" style="margin:0;">
             <input type="hidden" name="type" value="<?php echo $type; ?>">
-            <input class="field" type="text" name="celeb" id="s" placeholder="Search Celebrity">
+            <input class="field" type="text" name="celeb" id="s" placeholder="Search Celebrity" style="width:64%;">
             <input class="submit" type="submit" id="searchsubmit" value="Search">
         </form>
     </div>
@@ -722,7 +727,7 @@ elseif ('cele' == $type)
                 {
                     echo $celeb;
                     echo '</br><a href=' . str_replace(array('&celeb=' . rawurlencode($celeb), '?celeb=' . rawurlencode($celeb)), array('', '?'), $url) . '>clear filter</a>';
-                    echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img3.prosperent.com/images/celebrity/100x100/' . rawurlencode($celeb) . '.jpg"/></div>';
+                    echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'celebrity/100x100/' . rawurlencode($celeb) . '.jpg"/></div>';
                 }
                 ?>
             </td>
@@ -740,7 +745,7 @@ elseif ('cele' == $type)
         <div style="width:200px; padding-bottom:10px;">
             <form id="searchform" method="GET" action="">
                 <input type="hidden" name="type" value="<?php echo $type; ?>">
-                <input class="field" type="text" name="celeb" id="s" placeholder="Search Celebrity"></td>
+                <input class="field" type="text" name="celeb" id="s" placeholder="Search Celebrity" style="width:64%;">
                 <input class="submit" type="submit" id="searchsubmit" value="Search">
             </form>
         </div>
@@ -773,10 +778,10 @@ elseif ('cele' == $type)
         // Breaks the array into smaller chunks for each page depending on $limit
         $results = array_slice($results, $limitLower, $limit, true);
 
-        echo '<div class="totalFound" style="padding-bottom:10px;">' . $totalFound . ' results for <b>' . ucwords($celeb) . '</b></div>';
+        echo '<div class="totalFound">' . $totalFound . ' results for <b>' . ucwords($celeb) . '</b></div>';
         ?>
 
-        <form name="priceSorter" method="GET" action="<?php echo $submitUrl; ?>" style="float:right; padding-right:13px; padding-bottom:10px;">
+        <form name="priceSorter" method="GET" action="<?php echo $submitUrl; ?>" style="margin:0; float:right; padding:4px 13px 4px 0;">
             <input type="hidden" name="celeb" value="<?php echo $celeb;?>">
             <input type="hidden" name="type" value="<?php echo $type; ?>">
             <label for="PriceSort" style="font-color:#cc6600; font-size:14px;">Sort By: </label>
@@ -787,29 +792,28 @@ elseif ('cele' == $type)
                 <option value="price asc">Price: Low to High</option>
             </select>
         </form>
-        </br>
 
-        <table id="productList">
+        <div id="productList">
             <?php
             // Loop to return Products and corresponding information
             foreach ($results as $i => $record)
             {
                 $record['image_url'] = preg_replace('/\/images\/250x250\//', '/images/125x125/', $record['image_url'])
                 ?>
-                <tr class="productBlock">
-                    <td class="productImage">
+                <div class="<?php echo $i > 0 ? 'productBlock' : 'productBlock0'; ?>">
+                    <div class="productImage">
                         <a href="<?php echo $record['affiliate_url']; ?>"><span><img src="<?php echo $record['image_url']?>"  alt="<?php echo $record['keyword']?>" title="<?php echo $record['keyword']?>"></span></a>
-                    </td>
-                    <td class="productContent">
+                    </div>
+                    <div class="productContent">
                         <div class="productTitle"><a href="<?php echo $record['affiliate_url']; ?>"><span><?php echo $record['keyword']?></span></a></div>
                         <div class="productDescription"><?php
                             if (strlen($record['description']) > 200)
                             {
-                                echo substr($record['description'], 0, 200) . '...' . '</div>';
+                                echo substr($record['description'], 0, 200) . '...';
                             }
                             else
                             {
-                                echo $record['description'] . '</div>';
+                                echo $record['description'];
                             }
                             ?>
                         </div>
@@ -817,16 +821,16 @@ elseif ('cele' == $type)
                             <?php
                             if($record['brand'])
                             {
-                                echo '<u>Brand</u>: <a href="' . $url . '&filterBrand=' . rawurlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a>&nbsp&nbsp';
+                                echo '<span class="brandIn"><u>Brand</u>: <a href="' . $url . '&filterBrand=' . rawurlencode($record['brand']). '"><cite>' . $record['brand'] . '</cite></a></span>';
                             }
                             if($record['merchant'])
                             {
-                                echo '<u>Merchant</u>: <a href="' . $url . '&filterMerchant=' . rawurlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a>';
+                                echo '<span class="merchantIn"><u>Merchant</u>: <a href="' . $url . '&filterMerchant=' . rawurlencode($record['merchant']) . '"><cite>' . $record['merchant'] . '</cite></a></span>';
                             }
                             ?>
                         </div>
-                    </td>
-                    <td class="productEnd">
+                    </div>
+                    <div class="productEnd">
                         <?php
                         if(empty($record['price_sale']) || $record['price'] <= $record['price_sale'])
                         {
@@ -840,20 +844,19 @@ elseif ('cele' == $type)
                         {
                             ?>
                             <div class="productPrice"><span>$<?php echo $record['price']?></span></div>
-                            <div class="productPriceSale"style="padding-bottom:15px;"><span>$<span><?php echo $record['price_sale']?></span></span></div>
+                            <div class="productPriceSale"><span>$<?php echo $record['price_sale']?></span></div>
                             <?php
                         }
                         ?>
-                        <a href="<?php echo $record['affiliate_url']; ?>"><img src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
-                    </td>
-                </tr>
+                        <a href="<?php echo $record['affiliate_url']; ?>"><img class="visitImg" src="<?php echo plugins_url('/img/visit_store_button.png', __FILE__);?> "></a>
+                    </div>
+                </div>
                 <?php
             }
             ?>
-        </table>
+        </div>
         <?php
     }
 }
-
 
 prosper_pagination($pages, $pages);
