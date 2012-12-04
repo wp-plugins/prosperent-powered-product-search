@@ -9,15 +9,16 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds a product search box widget to your blog, which viewers can use to search and make purchases and you will earn a commission.
 
-Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
-The search box is now inside its own widget, and has shortcode available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
-
 == Description ==
 
 *Prosperent Product Search*
 
 This plugin will help make/increase earnings from your blog. It will add a product search box to your WordPress site, which viewers can use to search for products.
 When they click the product through your site they will be redirected to the Merchant's site. If they make a purchase you will earn a commission from the sale.
+
+Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
+The search box is now inside its own widget, and has shortcode available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
+
 
 *Why Prosperent Product Search?*
 
