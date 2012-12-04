@@ -16,7 +16,7 @@ The search box is now inside its own widget, and has shortcode available as well
 
 *Prosperent Product Search*
 
-This plugin will help make/increase earnings from your blog. It will add a product search box to your wordpress site, which viewers can use to search for products.
+This plugin will help make/increase earnings from your blog. It will add a product search box to your WordPress site, which viewers can use to search for products.
 When they click the product through your site they will be redirected to the Merchant's site. If they make a purchase you will earn a commission from the sale.
 
 *Why Prosperent Product Search?*
@@ -54,7 +54,7 @@ We have an ever growing community, which is always willing to answer questions a
     the `showcase` template.)
     Also, now that the results is shortcoded, you can add [prosper_store][/prosper_store] to any page.
     Reminder, if you use a different page from '/products' to display search results change the 'Base_URL' Setting.
-8.	Congratulations, you have a fully functioning product search engine embedded on your wordpress page.
+8.	Congratulations, you have a fully functioning product search engine embedded on your WordPress page.
 9.	Log in to Prosperent.com every so often to check your stats.
 
 
@@ -69,7 +69,7 @@ Additionally:
 
 = What is Prosperent? =
 
-Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean datafeeds, and provide a variety of publisher tools to get products on your site quickly and easily.
+Prosperent is a company that is serious about getting you the tools that simplify your life as an affiliate marketer. We manage relationships with merchants, clean data feeds, and provide a variety of publisher tools to get products on your site quickly and easily.
 
 = How many merchants does Prosperent work with? =
 
@@ -100,6 +100,10 @@ We take a 30% commission and pay you the other 70%. If you are a larger publishe
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
 
 == Changelog ==
+
+= 2.5 =
+
+* Responsive design, first implementation. Let me know how this works for you. I'll make adjustments if needed.
 
 = 2.4 =
 
@@ -159,8 +163,6 @@ DEACTIVATE and REACTIVATE this plugin to make the new shortcode changes take eff
 == Notes ==
 
 If your `product` page has a parent, make sure you assign that in the `Prosperent Settings` for `Parent Directory` with the leading slash.
-
-Also if you are getting an include error, on your `product` page created by the plugin you should see, `[php] include(plugin_dir_path(__FILE__) . 'products.php'); [/php]`, change the `include()` to the path of your plugins directory.
 
 You may also have to alter a little CSS as to the exact placement of the input box and the logo. Ask if you need any assistance doing so. The file to edit will be `productSearch.css` in the CSS folder.
 
