@@ -116,7 +116,7 @@ if ('prod' == $type || empty($type))
     /  Prosperent API Query
     */
     require_once('Prosperent_Api.php');
-    $prosperentApi = Prosperent_Api::endpoint(Prosperent_Api::ENDPOINT_PRODUCT, array(
+    $prosperentApi = new Prosperent_Api(array(
         'api_key'        => get_option('Api_Key'),
         'query'          => $query,
         'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
@@ -467,7 +467,7 @@ elseif ('coup' == $type)
     /  Prosperent API Query
     */
     require_once('Prosperent_Api.php');
-    $prosperentApi = Prosperent_Api::endpoint(Prosperent_Api::ENDPOINT_COUPON, array(
+    $prosperentApi = new Prosperent_Api(array(
         'api_key'        => get_option('Api_Key'),
         'query'          => $query,
         'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
@@ -622,17 +622,17 @@ elseif ('coup' == $type)
                         <?php
                         if(!empty($record['expiration_date']))
                         {
-                            $expires = new DateTime($record['expiration_date']);
-                            $today = new DateTime(date("Y-m-d"));
-                            $interval = $expires->diff($today);
+                            $expires = strtotime($record['expiration_date']);
+                            $today = strtotime(date("Y-m-d"));
+                            $interval = abs($expires - $today) / (60*60*24);
 
-                            if ($interval->days <= 7 && $interval->days > 0)
+                            if ($interval <= 7 && $interval > 0)
                             {
-                                echo '<div class="couponExpire">Expires in ' . $interval->days . ' days!</div>';
+                                echo '<div class="couponExpire"><span>Expires in ' . $interval . ' days!</span></div>';
                             }
                             else
                             {
-                                echo '<div class="couponExpire">Expires Soon!</div>';
+                                echo '<div class="couponExpire"><span>Expires Soon!</span></div>';
                             }
                         }
                         ?>
@@ -666,7 +666,7 @@ elseif ('cele' == $type)
     /  Prosperent API Query
     */
     require_once('Prosperent_Api.php');
-    $prosperentApi = Prosperent_Api::endpoint(Prosperent_Api::ENDPOINT_PRODUCT, array(
+    $prosperentApi = new Prosperent_Api(array(
         'api_key'         => get_option('Api_Key'),
         'filterCelebrity' => $celeb,
         'visitor_ip'      => $_SERVER['REMOTE_ADDR'],
@@ -675,7 +675,7 @@ elseif ('cele' == $type)
         'enableFacets'    => get_option('Enable_Facets'),
     ));
 
-    $celebrityApi = Prosperent_Api::endpoint(Prosperent_Api::ENDPOINT_CELEBRITY, array(
+    $celebrityApi = new Prosperent_Api(array(
         'api_key'         => get_option('Api_Key'),
         'visitor_ip'      => $_SERVER['REMOTE_ADDR'],
         'limit'           => 500,
