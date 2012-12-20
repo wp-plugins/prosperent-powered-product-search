@@ -102,6 +102,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 2.8 =
+
+*Unique Titles on search pages, display query and your site name
+
 = 2.5 =
 
 * Responsive design CSS fix
