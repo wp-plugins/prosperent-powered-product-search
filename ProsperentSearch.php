@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 2.8
+Version: 2.9
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -123,11 +123,9 @@ function register_prosperentSettings()
 
 function prosper_title($post_title, $sep, $seplocation)
 {
-    $options = Prosper_Store::options();
-
-    if (is_singular() && !$_GET['q'] && $options['Starting_Query'])
+    if (is_singular() && !$_GET['q'] && get_option['Starting_Query'])
     {
-        $post_title = ucwords($options['Starting_Query'])  . ' | ';
+        $post_title = ucwords(get_option['Starting_Query'])  . ' | ';
     }
     else if (is_singular() && $_GET['q'])
     {

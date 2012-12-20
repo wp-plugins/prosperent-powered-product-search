@@ -102,6 +102,10 @@ The commission rates vary from merchant to merchant, but we are always negotiati
 
 == Changelog ==
 
+= 2.9 =
+
+* fixed bug in 2.8
+
 = 2.8 =
 
 *Unique Titles on search pages, display query and your site name
