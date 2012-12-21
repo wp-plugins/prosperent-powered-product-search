@@ -37,6 +37,7 @@ We have an ever growing community, which is always willing to answer questions a
 3.	Upload the `prosperent-powered-product-search` folder to the `/wp-content/plugins/` directory.
 4.	Activate the plugin through the 'Plugins' menu in WordPress.
 5.  Under 'Appearance', go to 'Widgets' and add the 'Prosperent Store' widget where you'd like it. You can give it a title if you want as well.
+    * If you have Accessibility Mode activated it will show 'Add' next to the widget, click 'Add' instead of trying to drag it.
 6.	Go to the `Prosperent Settings` under Settings and edit those that you'd like, don't forget to add your API key here.
 
         * API Key, input the API Key that you got earlier.
@@ -55,8 +56,9 @@ We have an ever growing community, which is always willing to answer questions a
     the `showcase` template.)
     Also, now that the results is shortcoded, you can add [prosper_store][/prosper_store] to any page.
     Reminder, if you use a different page from '/products' to display search results change the 'Base_URL' Setting.
-8.	Congratulations, you have a fully functioning product search engine embedded on your WordPress page.
-9.	Log in to Prosperent.com every so often to check your stats.
+
+* Congratulations, you have a fully functioning product search engine embedded on your WordPress page.
+* Log in to Prosperent.com every so often to check your stats.
 
 
 
