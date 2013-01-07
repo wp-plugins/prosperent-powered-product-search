@@ -60,13 +60,6 @@ $pageNumber = preg_replace('/(.*)(\/page\/)(\d+)(\/.*)/i', '$3', $_SERVER['REQUE
 $celeb = $_GET['celeb'];
 $type = $_GET['type'];
 
-$imageServers = array(
-        'http://img1.prosperent.com/images/',
-        'http://img2.prosperent.com/images/',
-        'http://img3.prosperent.com/images/',
-        'http://img4.prosperent.com/images/'
-    );
-
 if (!$_GET['q'] && get_option('Starting_Query'))
 {
     if (preg_match('/\?/' , $_SERVER['REQUEST_URI']))
@@ -117,15 +110,15 @@ if ('prod' == $type || empty($type))
     */
     require_once('Prosperent_Api.php');
     $prosperentApi = new Prosperent_Api(array(
-	   'api_key'        => get_option('Api_Key'),
- 	   'query'          => $query,
- 	   'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
- 	   'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
- 	   'sortBy'	     => $sort,
- 	   'groupBy'	     => 'productId',
- 	   'enableFacets'   => get_option('Enable_Facets'),
- 	   'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
- 	   'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
+       'api_key'        => get_option('Api_Key'),
+        'query'          => $query,
+        'visitor_ip'     => $_SERVER['REMOTE_ADDR'],
+        'limit'          => !get_option('Api_Limit') ? 100 : get_option('Api_Limit'),
+        'sortBy'	     => $sort,
+        'groupBy'	     => 'productId',
+        'enableFacets'   => get_option('Enable_Facets'),
+        'filterBrand'    => !get_option('Negative_Brand') ? $filterBrand : $negativeBrands,
+        'filterMerchant' => !get_option('Negative_Merchant') ? $filterMerchant : $negativeMerchants
     ));
 
     /*
@@ -227,7 +220,7 @@ if ('prod' == $type || empty($type))
                     {
                         echo $filterBrand;
                         echo '</br><a href=' . str_replace(array('&filterBrand=' . rawurlencode($filterBrand), '?filterBrand=' . rawurlencode($filterBrand)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'brandlogos/120x60/' . rawurlencode($filterBrand) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img1.prosperent.com/images/brandlogos/120x60/' . rawurlencode($filterBrand) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -266,7 +259,7 @@ if ('prod' == $type || empty($type))
                     {
                         echo $filterMerchant;
                         echo '</br><a href=' . str_replace(array('&filterMerchant=' . rawurlencode($filterMerchant), '?filterMerchant=' . rawurlencode($filterMerchant)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img1.prosperent.com/images/logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -544,7 +537,7 @@ elseif ('coup' == $type)
                     {
                         echo $filterMerchant;
                         echo '</br><a href=' . str_replace(array('&filterMerchant=' . rawurlencode($filterMerchant), '?filterMerchant=' . rawurlencode($filterMerchant)), array('', '?'), $url) . '>clear filter</a>';
-                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
+                        echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img1.prosperent.com/images/logos/120x60/' . rawurlencode($filterMerchant) . '.png"/></div>';
                     }
                     ?>
                 </td>
@@ -727,7 +720,7 @@ elseif ('cele' == $type)
                 {
                     echo $celeb;
                     echo '</br><a href=' . str_replace(array('&celeb=' . rawurlencode($celeb), '?celeb=' . rawurlencode($celeb)), array('', '?'), $url) . '>clear filter</a>';
-                    echo '<div style="margin-top:-50px;padding-left:150px;"><img src="' . $imageServers[array_rand($imageServers, 1)] . 'celebrity/100x100/' . rawurlencode($celeb) . '.jpg"/></div>';
+                    echo '<div style="margin-top:-50px;padding-left:150px;"><img src="http://img1.prosperent.com/images/celebrity/100x100/' . rawurlencode($celeb) . '.jpg"/></div>';
                 }
                 ?>
             </td>
