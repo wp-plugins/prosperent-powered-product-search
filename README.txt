@@ -2,7 +2,7 @@
 Contributors: Prosperent Brandon
 Tags: Prosperent, products, search, money, SEO, affiliate
 Requires at least: 3.0
-Tested up to: 3.4.2
+Tested up to: 3.5
 Stable tag: NA at this time
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,6 +11,12 @@ Adds a product search box widget to your blog, which viewers can use to search a
 
 == Description ==
 
+**[Prosperent Suite](http://wordpress.org/extend/plugins/prosperent-suite/)** *The newest Prosperent Plugin, includes all other Prosperent plugins in one.*
+
+* Please use the Prosperent Suite in place of your Product Search.
+
+
+
 *Prosperent Product Search*
 
 This plugin will help make/increase earnings from your blog. It will add a product search box to your WordPress site, which viewers can use to search for products.
@@ -18,7 +24,6 @@ When they click the product through your site they will be redirected to the Mer
 
 Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
 The search box is now inside its own widget, and has shortcode available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
-
 
 *Why Prosperent Product Search?*
 
@@ -103,6 +108,11 @@ We take a 30% commission and pay you the other 70%. If you are a larger publishe
 The commission rates vary from merchant to merchant, but we are always negotiating the highest rates in the industry. We pay out net30 like most networks. The only exception is when a merchant that we work with extends a commission based on their return policy. Our reporting interface reflects this and allows you to see the status of each commission. It's the same as what you would experience with any of the other affiliate networks like commission junction.
 
 == Changelog ==
+
+= 3.1 =
+
+* changed image servers
+* fixed small bug
 
 = 2.9 =
 

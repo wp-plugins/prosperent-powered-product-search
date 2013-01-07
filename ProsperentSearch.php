@@ -2,7 +2,7 @@
 /*
 Plugin Name: Prosperent Product Search
 Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 3.0
+Version: 3.1
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -177,8 +177,8 @@ function prosperent_settings_page()
                     <td>
                         <select name="Default_Sort">
                             <option name="Default_Sort" value="relevance desc" <?php echo selected('relevance desc', get_option('Default_Sort')); ?>>Relevancy</option>
-                            <option name="Default_Sort" value="price asc" <?php echo selected('price asc', get_option('Default_Sort')); ?>>Price: High to Low</option>
-                            <option name="Default_Sort" value="price desc" <?php echo selected('price desc', get_option('Default_Sort')); ?>>Price: Low to High</option>
+                            <option name="Default_Sort" value="price desc" <?php echo selected('price desc', get_option('Default_Sort')); ?>>Price: High to Low</option>
+                            <option name="Default_Sort" value="price asc" <?php echo selected('price asc', get_option('Default_Sort')); ?>>Price: Low to High</option>
                         </select>
                     </td>
                 </tr>
