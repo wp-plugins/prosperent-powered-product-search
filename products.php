@@ -134,6 +134,11 @@ if ('prod' == $type || empty($type))
 
     $newUrl = str_replace(array('?type=' . $type, '&type=' . $type), array('?', ''), $url);
 
+    if (!preg_match('/\?/', $newUrl))
+    {
+        $newUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['[REDIRECT_URL'] . '?' . $q;
+    }
+
     echo '<div class="typeselector" style="display:inline-block;margin-top:9px;">';
     echo '<span style="color:#666;">Products</span>&nbsp;|';
     echo '&nbsp;<a href="' . preg_replace('/\/page\/\d+/i', '', $newUrl) . '&type=coup"> Coupons</a>&nbsp;|';
@@ -482,6 +487,11 @@ elseif ('coup' == $type)
 
     $newUrl = str_replace(array('?type=' . $type, '&type=' . $type), array('?', ''), $url);
 
+    if (!preg_match('/\?/', $newUrl))
+    {
+        $newUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['[REDIRECT_URL'] . '?' . $q;
+    }
+
     echo '<div class="typeselector" style="display:inline-block;margin-top:9px;">';
     echo '<a href="' . preg_replace('/\/page\/\d+/i', '', $newUrl) . '&type=prod">Products</a>&nbsp;|';
     echo '&nbsp;<span style="color:#666;">Coupons</span>&nbsp;|';
@@ -687,6 +697,11 @@ elseif ('cele' == $type)
     $celebrityResults = $celebrityApi -> getData();
 
     $newUrl = str_replace(array('?type=' . $type, '&type=' . $type, '&celeb=' . rawurlencode($celeb)), array('?', '', ''), $url);
+
+    if (!preg_match('/\?/', $newUrl))
+    {
+        $newUrl = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['[REDIRECT_URL'] . '?' . $q;
+    }
 
     echo '<div class="typeselector" style="display:inline-block;margin-top:9px;">';
     echo '<a href="' . preg_replace('/\/page\/\d+/i', '', $newUrl) . '&type=prod">Products</a>&nbsp;|';
