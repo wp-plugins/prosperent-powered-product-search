@@ -11,7 +11,11 @@ Adds a product search box widget to your blog, which viewers can use to search a
 
 == Description ==
 
-**[Prosperent Suite](http://wordpress.org/extend/plugins/prosperent-suite/)** *The newest Prosperent Plugin, includes all other plugins in one.*
+**[Prosperent Suite](http://wordpress.org/extend/plugins/prosperent-suite/)** *The newest Prosperent Plugin, includes all other Prosperent plugins in one.*
+
+* Please use the Prosperent Suite in place of your Product Search.
+
+
 
 *Prosperent Product Search*
 
@@ -20,7 +24,6 @@ When they click the product through your site they will be redirected to the Mer
 
 Now you can place the shortcode [prosper_store][/prosper_store] anywhere, on any other page and it will give you another instance of the store.
 The search box is now inside its own widget, and has shortcode available as well. [prosper_search][/prosper_search] will give you a search bar in any location you'd like it. And you can alter its CSS with the 'Additional CSS' setting.
-
 
 *Why Prosperent Product Search?*
 
