@@ -18,7 +18,6 @@ This plugin is no longer being updated, please download the Prosperent Suite ins
 * **This plugin is no longer being updated.**
 * **The Prosperent Suite contains the newest version of the Prosperent Product Search and other tools.**
 
-
 *Prosperent Product Search*
 
 This plugin will help make/increase earnings from your blog. It will add a product search box to your WordPress site, which viewers can use to search for products.
