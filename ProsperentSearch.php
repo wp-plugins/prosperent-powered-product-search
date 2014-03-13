@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Prosperent Product Search
-Description: Plugin designed to add a product search to a WordPress blog using Prosperent's API.
-Version: 3.2
+Description: This plugin is no longer being updated. Please download the new Prosperent plugin instead- <a href="http://wordpress.org/extend/plugins/prosperent-suite/">Prosperent Suite</a>
+Version: 3.3
 Author: Prosperent Brandon
 License: GPL2
 */
@@ -29,6 +29,16 @@ add_shortcode('prosper_store','prosper_store');
 add_shortcode('prosper_search', 'Prospere_Search_Short');
 add_action( 'widgets_init', create_function( '', 'register_widget( "Prosper_Store_Widget" );' ) );
 add_action('wp_title', 'prosper_title', 10, 3);
+
+add_action( 'admin_notices', 'prosperProdSearchNoticeWrite' );
+function prosperProdSearchNoticeWrite() 
+{
+	echo '<div class="error" style="padding:6px 0;">';
+	echo _e( '<span style="font-size:14px; padding-left:10px;"><b>The Prosperent Product Search plugin is no longer being updated.<b></span><br><br>', 'my-text-domain' );
+	echo _e( '<span style="font-size:16px; padding-left:10px;">Please download the new Prosperent plugin instead- <a href="http://wordpress.org/extend/plugins/prosperent-suite/">Prosperent Suite</a></span><br><br>', 'my-text-domain' );
+	echo _e( '<span style="font-size:14px; padding-left:10px;">It contains the new Prosperent Product Search plus other great tools.</span><span style="font-size:12px;"></span>', 'my-text-domain' );
+	echo '</div>';	
+}
 
 class Prosper_Store_Widget extends WP_Widget
 {

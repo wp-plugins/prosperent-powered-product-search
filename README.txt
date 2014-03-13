@@ -3,18 +3,20 @@ Contributors: Prosperent Brandon
 Tags: Prosperent, products, search, money, SEO, affiliate
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: NA at this time
+Stable tag: 3.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a product search box widget to your blog, which viewers can use to search and make purchases and you will earn a commission.
+This plugin is no longer being updated, please download the Prosperent Suite instead, listed below.
 
 == Description ==
 
-**[Prosperent Suite](http://wordpress.org/extend/plugins/prosperent-suite/)** *The newest Prosperent Plugin, includes all other Prosperent plugins in one.*
+**[Prosperent Suite](http://wordpress.org/extend/plugins/prosperent-suite/)** 
+**The newest Prosperent Plugin, includes all other Prosperent plugins in one.**
 
-* Please use the Prosperent Suite in place of your Product Search.
-
+* **Please use the Prosperent Suite in place of your Prosperent Product Search.** 
+* **This plugin is no longer being updated.**
+* **The Prosperent Suite contains the newest version of the Prosperent Product Search and other tools.**
 
 
 *Prosperent Product Search*
