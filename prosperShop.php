@@ -62,7 +62,7 @@ if (!defined('PROSPERSHOP_CSS'))
 if (!defined('PROSPERSHOP_THEME'))
 	define('PROSPERSHOP_THEME', WP_CONTENT_DIR . '/prosperent-themes');
 
-//error_reporting(0);   
+error_reporting(0);   
 
 require_once(PROSPERSHOP_INCLUDE . '/ProsperIndexController.php');
 
