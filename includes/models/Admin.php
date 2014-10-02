@@ -24,20 +24,6 @@ class Model_Shop_Admin extends Model_Shop_Base
 			$this->deleteRecent($_GET['deleteRecent']);
 			wp_redirect( admin_url( 'admin.php?page=prosper_productSearch' ) );
 		}
-		
-		if ( isset( $_GET['clearCache'] ) && wp_verify_nonce( $_GET['nonce'], 'prosper_clear_cache' ) && current_user_can( 'manage_options' ) ) 
-		{
-			$cacheDir = glob(PROSPERSHOP_CACHE . '/*'); 
-
-			shell_exec('rm -rf ' . PROSPERSHOP_CACHE . '/*');			
-			
-			wp_redirect( admin_url( 'admin.php?page=prosper_general&cacheCleared' ) );
-		}
-		
-		if ( isset( $_GET['cacheCleared'] ))
-		{
-			echo '<div id="message" style="width:800px;" class="message updated"><p><strong>' . esc_html('Cache Cleared.') . '</strong></p></div>';
-		}
     }	
 		
 	public function deleteRecent($optNum) 

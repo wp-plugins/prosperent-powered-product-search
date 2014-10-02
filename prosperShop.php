@@ -2,7 +2,7 @@
 /*
 Plugin Name: ProsperShop
 Description: Add a shop to your blog in a few clicks.
-Version: 3.4
+Version: 3.5
 Author: Prosperent Brandon
 Author URI: http://prosperent.com
 Plugin URI: http://community.prosperent.com/forumdisplay.php?33-Prosperent-Plugins

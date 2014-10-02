@@ -38,13 +38,11 @@ else
 	}
 	else
 	{
-		wp_redirect( admin_url( 'admin.php?page=prosper_themes' ) );
+		wp_redirect( admin_url( 'admin.php?page=prospershop_themes' ) );
 	}
 }
 
-
 echo __( '<ol><li>Place new theme directories inside <strong>prosperent-themes</strong>.<a href="#" class="prosper_tooltip"><span style="max-width:465px;">New theme directories should contain one or all of the following: <br>&bull;&nbsp;<strong>product.php</strong>- this is for the product results<br>&bull;&nbsp;<strong>productPage.php</strong> - this is for the individual product pages<br>&bull;&nbsp;a <strong>CSS file</strong> - contains the CSS for product.php and productPage.php<br>(The CSS file can be named anything, the plugin is looking for the extension .css).</span></a></li><li>Select the desired theme.</li></ol>', 'prosperent-suite' );
 echo '<p class="prosper_desc">' . __( "", 'prosperent-suite' ) . '</p>';
-
 
 $prosperAdmin->adminFooter();

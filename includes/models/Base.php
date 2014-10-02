@@ -32,28 +32,15 @@ abstract class Model_Shop_Base
 		{ 		
 			add_action('wp_head', array($this, 'prosperHeaderScript'));
 			
-			if (isset($this->_options['Enable_Caching']) &&  (!file_exists(PROSPERSHOP_CACHE) || substr(decoct( fileperms(PROSPERSHOP_CACHE) ), 1) <= 0755))
-			{
-				shell_exec('mkdir ' . PROSPERSHOP_CACHE);
-
-				if ((!file_exists(PROSPERSHOP_CACHE) || substr(decoct( fileperms(PROSPERSHOP_CACHE) ), 1) <= 0755))
-				{
-					add_action( 'admin_notices', array($this, 'prosperNoticeWrite' ));
-				}
-			}
-			
-			require_once(PROSPERSHOP_PATH . 'ProsperentApi.php');
+			//require_once(PROSPERSHOP_PATH . 'ProsperentApi.php');
 				
 			require_once(PROSPERSHOP_INCLUDE . '/ProsperSearchController.php');
 			if ($this->_options['Base_URL'] ? $this->_options['Base_URL'] : 'products')
 			{
 				add_action('wp_enqueue_scripts', array($this, 'productStoreJs'));	
 			}
-
-			if (isset($this->_options['Enable_PPS']) || isset($this->_options['Enable_AC']))
-			{
-				add_action('wp_enqueue_scripts', array($this, 'prosperStylesheets'));	
-			}	
+			
+			add_action('wp_enqueue_scripts', array($this, 'prosperStylesheets'));	
 		}
 		else
 		{
@@ -150,15 +137,6 @@ abstract class Model_Shop_Base
 			echo _e('<span style="font-size:14px; padding-left:10px;">Go to the Prosperent Suite <a href="' . $url . '">General Settings</a> and follow the directions to get your API Key.</span>', 'my-text-domain' );
 			echo '</div>';		
 		}
-	}
-	
-	public function prosperNoticeWrite() 
-	{
-		echo '<div class="error" style="padding:6px 0;">';
-		echo _e( '<span style="font-size:14px; padding-left:10px;">The plugin was <strong>unable</strong> to create the <strong>prosperent_cache</strong> directory inside <strong>wp-content</strong>.</span><br><br>', 'my-text-domain' );
-		echo _e( '<span style="font-size:14px; padding-left:10px;">Please create the <strong>prosperent_cache</strong> directory inside your <strong>wp-content</strong> directory and make it writable (0777).</span><br>', 'my-text-domain' );
-		echo _e( '<span style="font-size:14px; padding-left:10px;">If you need assistance, <a href="http://codex.wordpress.org/Changing_File_Permissions">Changing File Permissions</a></span>', 'my-text-domain');
-		echo '</div>';	
 	}
 	
 	/**
@@ -274,7 +252,7 @@ abstract class Model_Shop_Base
 		delete_option("prosperent_store_page_id");
 	}
 	
-	public function apiCall ($settings, $fetch, $lifetime = PROSPERSHOP_CACHE_PRODS, $sid = '')
+	public function apiCall ($settings, $fetch, $sid = '')
 	{	
 		if (empty($this->_options))
 		{
@@ -366,16 +344,11 @@ abstract class Model_Shop_Base
 		{
 			throw new Exception(implode('; ', $response['errors']));
 		}
-
-		/*if ($options['Enable_Caching'] && file_exists(PROSPER_CACHE) && substr(decoct( fileperms(PROSPER_CACHE) ), 1) >= 0755)
-		{
-			$settings = array_merge($settings, $this->apiCaching($lifetime));	
-		}*/		
 		
 		return array('results' => $response['data'], 'totalAvailable' => $response['totalRecordsAvailable'], 'total' => $response['totalRecordsFound'], 'facets' => $response['facets']);
 	}
 	
-	public function trendsApiCall ($settings, $fetch, $categories = '', $merchants = '', $brands = '', $sid = '', $lifetime = PROSPERSHOP_CACHE_COUPS)
+	public function trendsApiCall ($settings, $fetch, $categories = '', $merchants = '', $brands = '', $sid = '')
 	{
 		if (empty($this->_options))
 		{
@@ -517,18 +490,5 @@ abstract class Model_Shop_Base
 		}
 
 		return $response;
-	}
-	
-	public function apiCaching($lifetime)
-	{
-		$cache = array(
-			'cacheBackend'  => 'FILE',
-			'cacheOptions'  => array(
-				'cache_dir' => PROSPERSHOP_CACHE,
-				'lifetime'	=> $lifetime
-			)
-		);	
-		
-		return $cache;
 	}
 }

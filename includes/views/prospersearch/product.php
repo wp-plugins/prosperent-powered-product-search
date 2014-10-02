@@ -138,7 +138,7 @@ if (strlen($title) > 60)
 }
 ?>
 
-<div class="totalFound" style="margin-top:none;"><?php echo (($totalFound > 0 && isset($title)) ? (number_format($totalFound) . ' results for ' . preg_replace('/\(.+\)/i', '', $title)) : ($newTrendsTitle ? $newTrendsTitle : 'Browse these <strong>' . $trend . '</strong>')) . ($demolishUrl && !$trend ? '<a class="xDemolish" href=' . $demolishUrl . '> [x]</a>' : ''); ?></div>
+<div class="totalFound" style="margin-top:none;"><?php echo (($totalFound > 0 && isset($title)) ? (number_format($totalFound) . ' results for <strong>' . preg_replace('/\(.+\)/i', '', $title) . '</strong>') : ($newTrendsTitle ? $newTrendsTitle : 'Browse these <strong>' . $trend . '</strong>')) . ($demolishUrl && !$trend ? '<a class="xDemolish" href=' . $demolishUrl . '> [x]</a>' : ''); ?></div>
 
 <div class="prosper_priceSorter">
 	<form class="sorterofprice" name="priceSorter" method="POST" action="" >
@@ -311,7 +311,7 @@ elseif ($params['view'] === 'grid')
 				<li <?php echo 'style="width:' . $gridImage . '!important;"'; ?>>
 					<div class="listBlock">
 						<div class="prodImage">
-							<a href="<?php echo $homeUrl . '/' . $type . '/' . rawurlencode(str_replace('/', ',SL,', $record['keyword'])) . '/cid/' . $cid; ?>" rel="nolink"><span <?php echo $classLoad . ($type != 'coupon' ? ('style="width:' . $gridImage . '!important; height:' . $gridImage . '!important;"') : 'style="height:60px;width:120px"'); ?>><img <?php echo ($type != 'coupon' ? ('style="width:' . $gridImage . '!important; height:' . $gridImage . '!important;"') : 'style="height:60px;width:120px"'); ?> src="<?php echo $options['Image_Masking'] ? $homeUrl  . '/img/'. rawurlencode(str_replace(array('http://img1.prosperent.com/images/', '/'), array('', ',SL,'), $record['image_url'])) : $record['image_url']; ?>"  title="<?php echo $record['keyword']; ?>" alt="<?php echo $record['keyword']; ?>"/></span></a>
+							<a href="<?php echo $homeUrl . '/' . $type . '/' . rawurlencode(str_replace('/', ',SL,', $record['keyword'])) . '/cid/' . $cid; ?>" rel="nolink"><span <?php echo $classLoad . 'style="width:' . $gridImage . ($type != 'coupon' ? (';height:' . $gridImage . '!important;"') : ';height:60px;"'); ?>><img <?php echo ($type != 'coupon' ? ('style="width:' . $gridImage . '!important; height:' . $gridImage . '!important;"') : 'style="height:60px;width:120px"'); ?> src="<?php echo $options['Image_Masking'] ? $homeUrl  . '/img/'. rawurlencode(str_replace(array('http://img1.prosperent.com/images/', '/'), array('', ',SL,'), $record['image_url'])) : $record['image_url']; ?>"  title="<?php echo $record['keyword']; ?>" alt="<?php echo $record['keyword']; ?>"/></span></a>
 						</div>
 							<?php
 							if ($record['promo'])
@@ -338,6 +338,10 @@ elseif ($params['view'] === 'grid')
 									echo '<div class="couponExpire"><span><a href="' . $homeUrl . '/' . $type . '/' . rawurlencode(str_replace('/', ',SL,', $record['keyword'])) . '/cid/' . $cid . '" rel="nolink">Expires Soon!</a></span></div>';
 								}
 							}
+							else
+							{
+								echo '<div class="promo">&nbsp;</div>';
+							}
 							?>
 						<div class="prodContent">
 							<div class="prodTitle">
@@ -363,6 +367,8 @@ elseif ($params['view'] === 'grid')
     echo '</ul>';
     echo '</div>';
 }
-
+$time_post = microtime(true);
+$exec_time = $time_post - $time_pre;
+echo $exec_time . '<br>';
 $this->searchModel->prosperPagination($totalAvailable, $params['page']);
 echo '</br>';

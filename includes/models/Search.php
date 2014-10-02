@@ -648,7 +648,7 @@ class Model_Shop_Search extends Model_Shop_Base
 		{		
 			$allData = $this->apiCall(array(
 				'filterMerchant' => str_replace(',SL,', '/', $merchant)
-			), 'fetchMerchant', PROSPERSHOP_CACHE_PRODS);			
+			), 'fetchMerchant');			
 
 			if ($allData['results'][0]['deepLinking'] == 1)
 			{
